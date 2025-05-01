@@ -51,7 +51,7 @@ struct ContentView: View {
                 }
                 .frame(height: 420)
             }
-            .navigationTitle("Looping Stack")
+            .navigationTitle("Pocket Movie")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.gray.opacity(0.2))
         }
