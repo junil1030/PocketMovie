@@ -27,7 +27,15 @@ final class DIContainer {
     
     //MARK: - DataSources
     private func registerDataSources() {
+        container.register(NetworkClient.self) { _ in
+            AFNetworkClient()
+        }.inObjectScope(.container)
         
+        // MovieAPIService 등록
+        container.register(MovieAPIService.self) { resolver in
+            let networkClient = resolver.resolve(NetworkClient.self)!
+            return DefaultMovieAPIService(networkClient: networkClient)
+        }.inObjectScope(.container)
     }
     
     //MARK: - Repositories
