@@ -11,7 +11,7 @@ import SwiftUI
 struct PocketMovieApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            APITestView()
         }
     }
 }
