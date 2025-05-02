@@ -27,6 +27,10 @@ final class AFNetworkClient: NetworkClient {
     }
     
     func request<T: Decodable>(_ endpoint: APIEndpoint) -> AnyPublisher<T, Error> {
+        
+        print("요청 URL: \(endpoint.url.absoluteString)")
+        print("요청 파라미터: \(String(describing: endpoint.parameters))")
+        
         return session.request(
             endpoint.url,
             method: endpoint.method,
