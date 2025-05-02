@@ -13,8 +13,7 @@ struct KMDBAPIKeys {
 }
 
 enum KMDBAPIEndpoint {
-    case movieDetail(movieCd: String)
-    case searchMovies(keyword: String, page: Int)
+    case searchMovies(keyword: String)
 }
 
 extension KMDBAPIEndpoint: APIEndpoint {
@@ -34,19 +33,14 @@ extension KMDBAPIEndpoint: APIEndpoint {
         var params: Parameters = [
             "collection": "kmdb_new2",
             "detail": "Y",
+            "listCount": "50",
             "ServiceKey": KMDBAPIKeys.apiKey
         ]
         
         switch self {
-        case .movieDetail(let movieCd):
-            params["movieId"] = movieCd
-            
-        case .searchMovies(let keyword, let page):
-            params["query"] = keyword
-            params["startCount"] = (page - 1) * 10
-            params["listCount"] = 10
+        case .searchMovies(let keyword):
+            params["title"] = keyword
         }
-        
         return params
     }
 }
