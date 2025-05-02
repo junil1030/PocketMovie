@@ -11,8 +11,7 @@ import Combine
 protocol MovieAPIService {
     func fetchDailyBoxOffice(date: String) -> AnyPublisher<DailyBoxOfficeResponse, Error>
     func fetchWeeklyBoxOffice(date: String, weekGb: String) -> AnyPublisher<WeeklyBoxOfficeResponse, Error>
-    func searchMovies(keyword: String) -> AnyPublisher<KOBISMovieSearchResponse, Error>
-    func fetchMovieDetail(movieCd: String) -> AnyPublisher<KMDBMovieResponse, Error>
+    func searchMovies(keyword: String) -> AnyPublisher<KMDBMovieResponse, Error>
 }
 
 final class DefaultMovieAPIService: MovieAPIService {
@@ -32,13 +31,8 @@ final class DefaultMovieAPIService: MovieAPIService {
         return networkClient.request(endpoint)
     }
     
-    func searchMovies(keyword: String) -> AnyPublisher<KOBISMovieSearchResponse, Error> {
-        let endpoint = KOBISAPIEndpoint.searchMovies(keyword: keyword)
-        return networkClient.request(endpoint)
-    }
-    
-    func fetchMovieDetail(movieCd: String) -> AnyPublisher<KMDBMovieResponse, Error> {
-        let endpoint = KMDBAPIEndpoint.movieDetail(movieCd: movieCd)
+    func searchMovies(keyword: String) -> AnyPublisher<KMDBMovieResponse, Error> {
+        let endpoint = KMDBAPIEndpoint.searchMovies(keyword: keyword)
         return networkClient.request(endpoint)
     }
 }
