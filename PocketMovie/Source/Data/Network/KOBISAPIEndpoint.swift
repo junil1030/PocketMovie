@@ -15,7 +15,6 @@ struct KOBISAPIKeys {
 enum KOBISAPIEndpoint {
     case dailyBoxOffice(targetData: String)
     case weeklyBoxOffice(targetDate: String, weekGb: String)
-    case searchMovies(keyword: String)
 }
 
 extension KOBISAPIEndpoint: APIEndpoint {
@@ -29,8 +28,6 @@ extension KOBISAPIEndpoint: APIEndpoint {
             return "/boxoffice/searchDailyBoxOfficeList.json"
         case .weeklyBoxOffice:
             return "/boxoffice/searchWeeklyBoxOfficeList.json"
-        case .searchMovies:
-            return "/movie/searchMovieList.json"
         }
     }
     
@@ -48,9 +45,6 @@ extension KOBISAPIEndpoint: APIEndpoint {
         case .weeklyBoxOffice(let targetDate, let weekGb):
             params["targetDt"] = targetDate
             params["weekGb"] = weekGb
-            
-        case .searchMovies(let keyword):
-            params["movieNm"] = keyword
         }
         
         return params
