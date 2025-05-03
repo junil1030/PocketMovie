@@ -11,7 +11,6 @@ import SwiftData
 @Model
 final class Movie {
     var title: String
-    var movieCode: String
     var releaseDate: String
     var posterURL: String?
     
@@ -29,7 +28,6 @@ final class Movie {
         watchedDate: Date
     ) {
         self.title = title
-        self.movieCode = movieCode
         self.releaseDate = releaseDate
         self.posterURL = posterURL
         self.rating = rating

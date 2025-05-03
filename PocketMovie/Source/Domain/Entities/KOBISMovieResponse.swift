@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct KOBISMovieSearchResponse: Codable {
+struct KOBISMovieResponse: Codable {
     let movieListResult: MovieListResult
 }
 
