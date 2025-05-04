@@ -10,7 +10,7 @@ import SwiftData
 
 protocol MovieRepository {
     func getAllMovies() async throws -> [Movie]
-    func getMovie(byId id: PersistentIdentifier) async throws -> Movie?
+    func getMovie(byId id: PersistentIdentifier) async -> Movie?
     func saveMovie(_ movie: Movie) async throws
     func updateMovie(_ movie: Movie) async throws
     func deleteMovie(_ movie: Movie) async throws
