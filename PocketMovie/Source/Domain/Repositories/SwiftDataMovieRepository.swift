@@ -34,9 +34,9 @@ final class SwiftDataMovieRepository: MovieRepository {
         }.value
     }
     
-    func getMovie(byId id: PersistentIdentifier) async throws -> Movie? {
-        return try await Task {
-            try modelContext.model(for: id) as? Movie
+    func getMovie(byId id: PersistentIdentifier) async -> Movie? {
+        await Task {
+            modelContext.model(for: id) as? Movie
         }.value
     }
     
