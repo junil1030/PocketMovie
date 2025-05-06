@@ -12,11 +12,27 @@ import SwiftData
 @MainActor
 class MainViewModel: ObservableObject {
     private let repository: MovieRepository
+    
+    @Published var movies: [Movie] = []
     @Published var isLoading = false
     @Published var error: Error?
     
     init(repository: MovieRepository) {
         self.repository = repository
+    }
+    
+    func fetchMovie() async {
+        isLoading = true
+        error = nil
+        
+        do {
+            movies = try await repository.getAllMovies()
+        } catch {
+            self.error = error
+            print("영화 목록 가져오기 오류: \(error)")
+        }
+        
+        isLoading = false
     }
     
     func deleteMovie(_ movie: Movie) async {
@@ -25,6 +41,8 @@ class MainViewModel: ObservableObject {
         
         do {
             try await repository.deleteMovie(movie)
+            
+            movies = try await repository.getAllMovies()
         } catch {
             self.error = error
             print("영화 삭제 오류: \(error)")
@@ -39,6 +57,8 @@ class MainViewModel: ObservableObject {
         
         do {
             try await repository.deleteMovies(movies)
+            
+            self.movies = try await repository.getAllMovies()
         } catch {
             self.error = error
             print("영화 일괄 삭제 오류: \(error)")
