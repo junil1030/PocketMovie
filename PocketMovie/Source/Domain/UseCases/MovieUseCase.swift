@@ -8,18 +8,18 @@
 import Foundation
 import SwiftData
 
+@MainActor
 protocol MovieUseCase {
-    func getAllMovies() async throws -> [Movie]
-    func saveMovie(_ movie: Movie) async throws
-    func updateMovie(_ movie: Movie) async throws
-    func deleteMovie(_ movie: Movie) async throws
-    func deleteMovies(_ movies: [Movie]) async throws
-    func deleteAllMovies() async throws
-    
-    @MainActor
+    func getAllMovies() -> [Movie]
+    func saveMovie(_ movie: Movie) throws
+    func updateMovie(_ movie: Movie) throws
+    func deleteMovie(_ movie: Movie) throws
+    func deleteMovies(_ movies: [Movie]) throws
+    func deleteAllMovies() throws
     func getModelContext() -> ModelContext
 }
 
+@MainActor
 final class DefaultMovieUseCase: MovieUseCase {
     private let repository: MovieRepository
     
@@ -27,31 +27,30 @@ final class DefaultMovieUseCase: MovieUseCase {
         self.repository = repository
     }
     
-    func getAllMovies() async throws -> [Movie] {
-        return try await repository.getAllMovies()
+    func getAllMovies() -> [Movie] {
+        return repository.getAllMovies()
     }
     
-    func saveMovie(_ movie: Movie) async throws {
-        try await repository.saveMovie(movie)
+    func saveMovie(_ movie: Movie) throws {
+        try repository.saveMovie(movie)
     }
     
-    func updateMovie(_ movie: Movie) async throws {
-        try await repository.updateMovie(movie)
+    func updateMovie(_ movie: Movie) throws {
+        try repository.updateMovie(movie)
     }
     
-    func deleteMovie(_ movie: Movie) async throws {
-        try await repository.deleteMovie(movie)
+    func deleteMovie(_ movie: Movie) throws {
+        try repository.deleteMovie(movie)
     }
     
-    func deleteMovies(_ movies: [Movie]) async throws {
-        try await repository.deleteMovies(movies)
+    func deleteMovies(_ movies: [Movie]) throws {
+        try repository.deleteMovies(movies)
     }
     
-    func deleteAllMovies() async throws {
-        try await repository.deleteAllMovies()
+    func deleteAllMovies() throws {
+        try repository.deleteAllMovies()
     }
     
-    @MainActor
     func getModelContext() -> ModelContext {
         return repository.getModelContext()
     }

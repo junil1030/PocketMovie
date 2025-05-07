@@ -27,51 +27,44 @@ final class SwiftDataMovieRepository: MovieRepository {
         self.modelContext = modelContainer.mainContext
     }
     
-    func getAllMovies() async throws -> [Movie] {
-        return try await Task {
-            let desciptor = FetchDescriptor<Movie>(sortBy: [SortDescriptor(\.watchedDate, order: .reverse)])
-            return try modelContext.fetch(desciptor)
-        }.value
+    func getAllMovies() -> [Movie] {
+        do {
+            let descriptor = FetchDescriptor<Movie>(sortBy: [SortDescriptor(\.watchedDate, order: .reverse)])
+            return try modelContext.fetch(descriptor)
+        } catch {
+            print("영화 목록 가져오기 오류: \(error)")
+            return []
+        }
     }
     
-    func getMovie(byId id: PersistentIdentifier) async -> Movie? {
-        await Task {
-            modelContext.model(for: id) as? Movie
-        }.value
+    func getMovie(byId id: PersistentIdentifier) -> Movie? {
+        return modelContext.model(for: id) as? Movie
     }
     
-    func saveMovie(_ movie: Movie) async throws {
-        try await Task {
-            modelContext.insert(movie)
-            try modelContext.save()
-        }.value
+    func saveMovie(_ movie: Movie) throws {
+        modelContext.insert(movie)
+        try modelContext.save()
     }
     
-    func updateMovie(_ movie: Movie) async throws {
-        try await Task {
-            try modelContext.save()
-        }.value
+    func updateMovie(_ movie: Movie) throws {
+        try modelContext.save()
     }
     
-    func deleteMovie(_ movie: Movie) async throws {
-        try await Task {
+    func deleteMovie(_ movie: Movie) throws {
+        modelContext.delete(movie)
+        try modelContext.save()
+    }
+    
+    func deleteMovies(_ movies: [Movie]) throws {
+        for movie in movies {
             modelContext.delete(movie)
-            try modelContext.save()
-        }.value
+        }
+        try modelContext.save()
     }
     
-    func deleteMovies(_ movies: [Movie]) async throws {
-        try await Task {
-            for movie in movies {
-                modelContext.delete(movie)
-            }
-            try modelContext.save()
-        }.value
-    }
-    
-    func deleteAllMovies() async throws {
-        try await Task {
-            let descriptor = FetchDescriptor<Movie>()
+    func deleteAllMovies() throws {
+        let descriptor = FetchDescriptor<Movie>()
+        do {
             let movies = try modelContext.fetch(descriptor)
             
             for movie in movies {
@@ -79,7 +72,9 @@ final class SwiftDataMovieRepository: MovieRepository {
             }
             
             try modelContext.save()
-        }.value
+        } catch {
+            throw RepositoryError.deleteError
+        }
     }
     
     func getModelContext() -> ModelContext {

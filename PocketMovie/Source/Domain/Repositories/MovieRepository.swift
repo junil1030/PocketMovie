@@ -8,15 +8,14 @@
 import Foundation
 import SwiftData
 
+@MainActor
 protocol MovieRepository {
-    func getAllMovies() async throws -> [Movie]
-    func getMovie(byId id: PersistentIdentifier) async -> Movie?
-    func saveMovie(_ movie: Movie) async throws
-    func updateMovie(_ movie: Movie) async throws
-    func deleteMovie(_ movie: Movie) async throws
-    func deleteMovies(_ movie: [Movie]) async throws
-    func deleteAllMovies() async throws
-    
-    @MainActor
+    func getAllMovies() -> [Movie]
+    func getMovie(byId id: PersistentIdentifier) -> Movie?
+    func saveMovie(_ movie: Movie) throws
+    func updateMovie(_ movie: Movie) throws
+    func deleteMovie(_ movie: Movie) throws
+    func deleteMovies(_ movies: [Movie]) throws
+    func deleteAllMovies() throws
     func getModelContext() -> ModelContext
 }
