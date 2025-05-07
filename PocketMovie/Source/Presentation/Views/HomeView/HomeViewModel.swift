@@ -10,15 +10,15 @@ import SwiftUI
 import SwiftData
 
 @MainActor
-class MainViewModel: ObservableObject {
-    private let repository: MovieRepository
+class HomeViewModel: ObservableObject {
+    private let movieUseCase: MovieUseCase
     
     @Published var movies: [Movie] = []
     @Published var isLoading = false
     @Published var error: Error?
     
-    init(repository: MovieRepository) {
-        self.repository = repository
+    init(movieUseCase: MovieUseCase) {
+        self.movieUseCase = movieUseCase
         fetchMovies()
     }
     
@@ -26,7 +26,7 @@ class MainViewModel: ObservableObject {
         isLoading = true
         error = nil
         
-        movies = repository.getAllMovies()
+        movies = movieUseCase.getAllMovies()
         
         isLoading = false
     }
@@ -36,8 +36,8 @@ class MainViewModel: ObservableObject {
         error = nil
         
         do {
-            try repository.deleteMovie(movie)
-            movies = repository.getAllMovies()
+            try movieUseCase.deleteMovie(movie)
+            movies = movieUseCase.getAllMovies()
         } catch {
             self.error = error
             print("영화 삭제 오류: \(error)")
@@ -51,8 +51,8 @@ class MainViewModel: ObservableObject {
         error = nil
         
         do {
-            try repository.deleteMovies(movies)
-            self.movies = repository.getAllMovies()
+            try movieUseCase.deleteMovies(movies)
+            self.movies = movieUseCase.getAllMovies()
         } catch {
             self.error = error
             print("영화 일괄 삭제 오류: \(error)")
@@ -62,6 +62,6 @@ class MainViewModel: ObservableObject {
     }
     
     func getModelContext() -> ModelContext {
-        return repository.getModelContext()
+        return movieUseCase.getModelContext()
     }
 }
