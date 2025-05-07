@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct PocketMovieApp: App {
+    init() {
+        Task {
+            await DIContainer.shared.registerMain()
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
-            APITestView()
+            HomeView()
         }
     }
 }
