@@ -19,30 +19,25 @@ class MainViewModel: ObservableObject {
     
     init(repository: MovieRepository) {
         self.repository = repository
+        fetchMovies()
     }
     
-    func fetchMovie() async {
+    func fetchMovies() {
         isLoading = true
         error = nil
         
-        do {
-            movies = try await repository.getAllMovies()
-        } catch {
-            self.error = error
-            print("영화 목록 가져오기 오류: \(error)")
-        }
+        movies = repository.getAllMovies()
         
         isLoading = false
     }
     
-    func deleteMovie(_ movie: Movie) async {
+    func deleteMovie(_ movie: Movie) {
         isLoading = true
         error = nil
         
         do {
-            try await repository.deleteMovie(movie)
-            
-            movies = try await repository.getAllMovies()
+            try repository.deleteMovie(movie)
+            movies = repository.getAllMovies()
         } catch {
             self.error = error
             print("영화 삭제 오류: \(error)")
@@ -51,14 +46,13 @@ class MainViewModel: ObservableObject {
         isLoading = false
     }
     
-    func deleteMovies(_ movies: [Movie]) async {
+    func deleteMovies(_ movies: [Movie]) {
         isLoading = true
         error = nil
         
         do {
-            try await repository.deleteMovies(movies)
-            
-            self.movies = try await repository.getAllMovies()
+            try repository.deleteMovies(movies)
+            self.movies = repository.getAllMovies()
         } catch {
             self.error = error
             print("영화 일괄 삭제 오류: \(error)")
