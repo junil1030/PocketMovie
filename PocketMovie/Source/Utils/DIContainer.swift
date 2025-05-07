@@ -68,9 +68,9 @@ final class DIContainer {
     //MARK: - ViewModels
     @MainActor
     private func registerViewModels() {
-        container.register(MainViewModel.self) { resolver in
-            let repository = resolver.resolve(MovieRepository.self)!
-            return MainViewModel(repository: repository)
+        container.register(HomeViewModel.self) { resolver in
+            let useCase = resolver.resolve(MovieUseCase.self)!
+            return HomeViewModel(movieUseCase: useCase)
         }
     }
 }
