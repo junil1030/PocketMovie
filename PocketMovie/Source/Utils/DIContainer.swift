@@ -10,16 +10,22 @@ import Swinject
 
 final class DIContainer {
     static let shared = DIContainer()
-    
-    let container: Container
+    let container = Container()
     
     private init() {
-        self.container = Container()
         registerDependencies()
+    }
+    
+    func registerMain() async {
+        await registerMainActorDependencies()
     }
 
     private func registerDependencies() {
         registerDataSources()
+    }
+    
+    @MainActor
+    private func registerMainActorDependencies() {
         registerRepositories()
         registerUseCases()
         registerViewModels()
@@ -39,17 +45,32 @@ final class DIContainer {
     }
     
     //MARK: - Repositories
+    @MainActor
     private func registerRepositories() {
-        
+        container.register(MovieRepository.self) { _ in
+            do {
+                return try SwiftDataMovieRepository()
+            } catch {
+                fatalError("영화 레포지토리 초기화 실패: \(error)")
+            }
+        }.inObjectScope(.container)
     }
     
     //MARK: - UseCases
+    @MainActor
     private func registerUseCases() {
-        
+        container.register(MovieUseCase.self) { resolver in
+            let repository = resolver.resolve(MovieRepository.self)!
+            return DefaultMovieUseCase(repository: repository)
+        }.inObjectScope(.container)
     }
     
     //MARK: - ViewModels
+    @MainActor
     private func registerViewModels() {
-        
+        container.register(MainViewModel.self) { resolver in
+            let repository = resolver.resolve(MovieRepository.self)!
+            return MainViewModel(repository: repository)
+        }
     }
 }
