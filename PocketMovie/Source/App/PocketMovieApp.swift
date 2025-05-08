@@ -9,15 +9,21 @@ import SwiftUI
 
 @main
 struct PocketMovieApp: App {
-    init() {
-        Task {
-            await DIContainer.shared.registerMain()
-        }
-    }
+    @State private var isReady = false
     
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            if isReady {
+                MainTabView()
+            } else {
+                ProgressView()
+                    .onAppear {
+                        Task {
+                            await DIContainer.shared.registerMain()
+                            isReady = true
+                        }
+                    }
+            }
         }
     }
 }
