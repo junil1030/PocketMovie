@@ -14,6 +14,12 @@ struct ImageModel: Identifiable {
     var image: String
 }
 
+struct Item: Identifiable, Hashable {
+    var id: String = UUID().uuidString
+    var title: String
+    var image: UIImage?
+}
+
 let images: [ImageModel] = [
     /// https://www.pexels.com/photo/green-palm-tree-near-white-and-black-dome-building-under-blue-sky-9002742/
     .init(altText:"Mo Eid", image: "Pic 1"),
@@ -23,6 +29,49 @@ let images: [ImageModel] = [
     .init(altText:"Cottonbro", image: "Pic 3"),
     /// https://www.pexels.com/photo/multicolored-abstract-painting-2868948/
     .init(altText:"Anni", image: "Pic 4")
+]
+
+let imageItems: [Item] = [
+    /// https://www.pexels.com/photo/green-palm-tree-near-white-and-black-dome-building-under-blue-sky-9002742/
+    .init(title:"Mo Eid", image: UIImage(named:"Pic 1")),
+    /// https://www.pexels.com/photo/a-gradient-wallpaper-7135121/
+    .init(title:"Codioful", image: UIImage(named:"Pic 2")),
+    /// https://www.pexels.com/photo/high-speed-photography-of-colorful-ink-diffusion-in-water-9669094/
+    .init(title:"Cottonbro", image: UIImage(named:"Pic 3")),
+    /// https://www.pexels.com/photo/multicolored-abstract-painting-2868948/
+    .init(title:"Anni", image: UIImage(named:"Pic 4")),
+    /// https://www.pexels.com/photo/green-palm-tree-near-white-and-black-dome-building-under-blue-sky-9002742/
+    .init(title:"Mo Eid", image: UIImage(named:"Pic 1")),
+    /// https://www.pexels.com/photo/a-gradient-wallpaper-7135121/
+    .init(title:"Codioful", image: UIImage(named:"Pic 2")),
+    /// https://www.pexels.com/photo/high-speed-photography-of-colorful-ink-diffusion-in-water-9669094/
+    .init(title:"Cottonbro", image: UIImage(named:"Pic 3")),
+    /// https://www.pexels.com/photo/multicolored-abstract-painting-2868948/
+    .init(title:"Anni", image: UIImage(named:"Pic 4")),
+    /// https://www.pexels.com/photo/green-palm-tree-near-white-and-black-dome-building-under-blue-sky-9002742/
+    .init(title:"Mo Eid", image: UIImage(named:"Pic 1")),
+    /// https://www.pexels.com/photo/a-gradient-wallpaper-7135121/
+    .init(title:"Codioful", image: UIImage(named:"Pic 2")),
+    /// https://www.pexels.com/photo/high-speed-photography-of-colorful-ink-diffusion-in-water-9669094/
+    .init(title:"Cottonbro", image: UIImage(named:"Pic 3")),
+    /// https://www.pexels.com/photo/multicolored-abstract-painting-2868948/
+    .init(title:"Anni", image: UIImage(named:"Pic 4")),
+    /// https://www.pexels.com/photo/green-palm-tree-near-white-and-black-dome-building-under-blue-sky-9002742/
+    .init(title:"Mo Eid", image: UIImage(named:"Pic 1")),
+    /// https://www.pexels.com/photo/a-gradient-wallpaper-7135121/
+    .init(title:"Codioful", image: UIImage(named:"Pic 2")),
+    /// https://www.pexels.com/photo/high-speed-photography-of-colorful-ink-diffusion-in-water-9669094/
+    .init(title:"Cottonbro", image: UIImage(named:"Pic 3")),
+    /// https://www.pexels.com/photo/multicolored-abstract-painting-2868948/
+    .init(title:"Anni", image: UIImage(named:"Pic 4")),
+    /// https://www.pexels.com/photo/green-palm-tree-near-white-and-black-dome-building-under-blue-sky-9002742/
+    .init(title:"Mo Eid", image: UIImage(named:"Pic 1")),
+    /// https://www.pexels.com/photo/a-gradient-wallpaper-7135121/
+    .init(title:"Codioful", image: UIImage(named:"Pic 2")),
+    /// https://www.pexels.com/photo/high-speed-photography-of-colorful-ink-diffusion-in-water-9669094/
+    .init(title:"Cottonbro", image: UIImage(named:"Pic 3")),
+    /// https://www.pexels.com/photo/multicolored-abstract-painting-2868948/
+    .init(title:"Anni", image: UIImage(named:"Pic 4"))
 ]
 
 struct ContentView: View {
