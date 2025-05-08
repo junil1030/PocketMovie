@@ -87,7 +87,7 @@ fileprivate struct LoopingStackCardView<Content: View>: View {
                     }.onEnded{ value in
                         let xVelocity = max(-value.translation.width / 5, 0)
                         
-                        if (-offset + xVelocity) > (viewSize.width * 0.65) {
+                        if (-offset + xVelocity) > (viewSize.width * 0.25) {
                             pushToNextCard()
                         }else {
                             withAnimation(.smooth(duration: 0.3, extraBounce: 0)) {
