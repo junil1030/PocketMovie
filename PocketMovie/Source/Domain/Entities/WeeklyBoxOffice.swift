@@ -20,9 +20,20 @@ struct WeeklyBoxOfficeResult: Codable {
 
 struct WeeklyBoxOffice: Codable, Identifiable {
     let rank: String
-    let movieCd: String
     let movieNm: String
     let openDt: String
     
-    var id: String { movieCd }
+    var id: String { rank }
+    
+    enum CodingKeys: String, CodingKey {
+        case rank, movieNm, openDt
+    }
+    
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.rank = try container.decode(String.self, forKey: .rank)
+        self.movieNm = try container.decode(String.self, forKey: .movieNm)
+        self.openDt = try container.decode(String.self, forKey: .openDt)
+    }
 }

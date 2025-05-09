@@ -19,9 +19,20 @@ struct DailyBoxOfficeResult: Codable {
 
 struct DailyBoxOffice: Codable, Identifiable {
     let rank: String
-    let movieCd: String
     let movieNm: String
     let openDt: String
     
-    var id: String { movieCd }
+    var id: String { rank }
+    
+    enum CodingKeys: String, CodingKey {
+        case rank, movieNm, openDt
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        rank = try container.decode(String.self, forKey: .rank)
+        movieNm = try container.decodeIfPresent(String.self, forKey: .movieNm) ?? ""
+        openDt = try container.decodeIfPresent(String.self, forKey: .openDt) ?? ""
+    }
 }
