@@ -72,5 +72,9 @@ final class DIContainer {
             let useCase = resolver.resolve(MovieUseCase.self)!
             return HomeViewModel(movieUseCase: useCase)
         }.inObjectScope(.container)
+        
+        container.register(SearchViewModel.self) { _ in
+            return SearchViewModel()
+        }.inObjectScope(.container)
     }
 }
