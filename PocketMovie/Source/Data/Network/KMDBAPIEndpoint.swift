@@ -14,6 +14,7 @@ struct KMDBAPIKeys {
 
 enum KMDBAPIEndpoint {
     case searchMovies(keyword: String)
+    case searchMovieWithReleaseDate(keyword: String, releaseDts: String)
 }
 
 extension KMDBAPIEndpoint: APIEndpoint {
@@ -40,6 +41,10 @@ extension KMDBAPIEndpoint: APIEndpoint {
         switch self {
         case .searchMovies(let keyword):
             params["title"] = keyword
+            
+        case .searchMovieWithReleaseDate(let keyword, let releaseDts):
+            params["title"] = keyword
+            params["releaseDts"] = releaseDts
         }
         return params
     }
