@@ -25,6 +25,11 @@ class SearchViewModel: ObservableObject {
     @Published var isLoadingBoxOffice = false
     @Published var boxOfficeError: Error?
     
+    // 포스터
+    private var posterURLs: [String: String] = [:]
+    @Published var posterLoadingComplete: Bool = false
+    private var posterLoadingStarted: Bool = false
+    
     init() {
         let container = DIContainer.shared
         self.movieAPIService = container.container.resolve(MovieAPIService.self)!
@@ -86,7 +91,11 @@ class SearchViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] response in
                 self?.dailyBoxOfficeList = response.boxOfficeResult.dailyBoxOfficeList
-                self?.isLoadingBoxOffice = false
+                
+                if !(self?.weeklyBoxOfficeList.isEmpty ?? true) {
+                    self?.isLoadingBoxOffice = false
+                    self?.loadAllPosters()
+                }
             }
             .store(in: &cancellables)
     }
@@ -101,8 +110,63 @@ class SearchViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] response in
                 self?.weeklyBoxOfficeList = response.boxOfficeResult.weeklyBoxOfficeList
-                self?.isLoadingBoxOffice = false
+                
+                if !(self?.dailyBoxOfficeList.isEmpty ?? true) {
+                    self?.isLoadingBoxOffice = false
+                    self?.loadAllPosters()
+                }
             }
             .store(in: &cancellables)
+    }
+    
+    private func createMovieList() -> [(title: String, releaseDate: String)] {
+        var movieList = [String: String]()
+        
+        for movie in dailyBoxOfficeList {
+            movieList[movie.movieNm] = movie.openDt
+        }
+        
+        for movie in weeklyBoxOfficeList {
+            if movieList[movie.movieNm] == nil {
+                movieList[movie.movieNm] = movie.openDt
+            }
+        }
+        
+        return movieList.map { (title: $0.key, releaseDate: $0.value) }
+    }
+    
+    func loadAllPosters() {
+        guard !posterLoadingStarted else { return }
+        posterLoadingStarted = true
+        
+        let movieList = createMovieList()
+        let group = DispatchGroup()
+        
+        for movie in movieList {
+            group.enter()
+            
+            movieAPIService.searchMovieWithReleaseDate(keyword: movie.title, releaseDts: movie.releaseDate)
+                .receive(on: DispatchQueue.main)
+                .sink { completion in
+                    group.leave()
+                } receiveValue: { [weak self] response in
+                    if let foundMovie = response.Data.first?.Result.first {
+                        if movie.releaseDate.replacingOccurrences(of: "-", with: "") == foundMovie.repRlsDate {
+                            self?.posterURLs[movie.title] = foundMovie.firstPosterURL
+                        } else {
+                            self?.posterURLs[movie.title] = nil
+                        }
+                    }
+                }
+                .store(in: &cancellables)
+        }
+        
+        group.notify(queue: .main) { [weak self] in
+            self?.posterLoadingComplete = true
+        }
+    }
+    
+    func getPosterURL(for movieTitle: String) -> String? {
+        return posterURLs[movieTitle]
     }
 }
