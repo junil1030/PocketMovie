@@ -12,6 +12,7 @@ protocol MovieAPIService {
     func fetchDailyBoxOffice(date: String) -> AnyPublisher<DailyBoxOfficeResponse, Error>
     func fetchWeeklyBoxOffice(date: String, weekGb: String) -> AnyPublisher<WeeklyBoxOfficeResponse, Error>
     func searchMovies(keyword: String) -> AnyPublisher<KMDBMovieResponse, Error>
+    func searchMovieWithReleaseDate(keyword: String, releaseDts: String) -> AnyPublisher<KMDBMovieResponse, Error>
 }
 
 final class DefaultMovieAPIService: MovieAPIService {
@@ -33,6 +34,11 @@ final class DefaultMovieAPIService: MovieAPIService {
     
     func searchMovies(keyword: String) -> AnyPublisher<KMDBMovieResponse, Error> {
         let endpoint = KMDBAPIEndpoint.searchMovies(keyword: keyword)
+        return networkClient.request(endpoint)
+    }
+    
+    func searchMovieWithReleaseDate(keyword: String, releaseDts: String) -> AnyPublisher<KMDBMovieResponse, any Error> {
+        let endpoint = KMDBAPIEndpoint.searchMovieWithReleaseDate(keyword: keyword, releaseDts: releaseDts)
         return networkClient.request(endpoint)
     }
 }
