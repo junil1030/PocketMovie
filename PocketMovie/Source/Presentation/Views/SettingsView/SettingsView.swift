@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SettingsView: View {
+    @State private var showDeleteConfirmation = false
+    @State private var showFeedbackForm = false
+    @State private var showContactForm = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Hello, World!")
     }
 }
 
