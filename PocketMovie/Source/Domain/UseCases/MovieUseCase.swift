@@ -15,7 +15,6 @@ protocol MovieUseCase {
     func updateMovie(_ movie: Movie) throws
     func deleteMovie(_ movie: Movie) throws
     func deleteMovies(_ movies: [Movie]) throws
-    func deleteAllMovies() throws
     func getModelContext() -> ModelContext
 }
 
@@ -45,10 +44,6 @@ final class DefaultMovieUseCase: MovieUseCase {
     
     func deleteMovies(_ movies: [Movie]) throws {
         try repository.deleteMovies(movies)
-    }
-    
-    func deleteAllMovies() throws {
-        try repository.deleteAllMovies()
     }
     
     func getModelContext() -> ModelContext {
