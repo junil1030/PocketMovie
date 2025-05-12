@@ -12,7 +12,8 @@ struct BoxOfficeView: View {
     let items: [String]
     let isLoading: Bool
     let error: Error?
-    let getPosterURL: (String) -> String?
+    //let getPosterURL: (String) -> String?
+    let posterURLs: [String: String]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -39,7 +40,7 @@ struct BoxOfficeView: View {
                             BoxOfficeItemView(
                                 rank: index + 1,
                                 title: title,
-                                posterURL: getPosterURL(title)
+                                posterURL: posterURLs[title]
                             )
                         }
                     }
