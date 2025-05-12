@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DataInitializationSection: View {
+    @EnvironmentObject private var viewModel: SettingsViewModel
     @State private var showDeleteConfirmation = false
     
     var body: some View {
@@ -23,7 +24,7 @@ struct DataInitializationSection: View {
         .alert("데이터 초기화", isPresented: $showDeleteConfirmation) {
             Button("취소", role: .cancel) {}
             Button("삭제", role: .destructive) {
-                // 데이터 초기화 로직
+                viewModel.resetAllData()
             }
         } message: {
             Text("모든 영화 카드가 삭제됩니다.\n 이 작업은 되돌릴 수 없습니다.")
