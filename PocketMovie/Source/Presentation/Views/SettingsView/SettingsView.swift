@@ -10,12 +10,15 @@ import SwiftData
 import MessageUI
 
 struct SettingsView: View {
+    @StateObject private var viewModel = DIContainer.shared.container.resolve(SettingsViewModel.self)!
+    
     var body: some View {
         NavigationStack {
             Form {
                 // 데이터 관리 섹션
                 Section(header: Text("데이터 관리")) {
                     DataInitializationSection()
+                        .environmentObject(viewModel)
                 }
                 
                 // 앱 피드백 섹션
