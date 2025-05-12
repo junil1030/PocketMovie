@@ -86,5 +86,10 @@ final class DIContainer {
             let useCase = resolver.resolve(DataResetUseCase.self)!
             return SettingsViewModel(dataResetUseCase: useCase)
         }.inObjectScope(.container)
+        
+        container.register(CardCreationViewModel.self) { (resolver, movie: KMDBMovie) in
+            let useCase = resolver.resolve(MovieUseCase.self)!
+            return CardCreationViewModel(movie: movie, movieUseCase: useCase)
+        }
     }
 }
