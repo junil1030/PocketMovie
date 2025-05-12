@@ -7,14 +7,33 @@
 
 import SwiftUI
 import SwiftData
+import MessageUI
 
 struct SettingsView: View {
-    @State private var showDeleteConfirmation = false
-    @State private var showFeedbackForm = false
-    @State private var showContactForm = false
-    
     var body: some View {
-        Text("Hello, World!")
+        NavigationStack {
+            Form {
+                // 데이터 관리 섹션
+                Section(header: Text("데이터 관리")) {
+                    DataInitializationSection()
+                }
+                
+                // 앱 피드백 섹션
+                Section(header: Text("서비스")) {
+                    ReviewSection()
+                    
+                    EmailSection()
+                }
+                
+                // 정보 섹션
+                Section(header: Text("정보")) {
+                    LicenseSection()
+                    
+                    AppVersionSection()
+                }
+            }
+            .navigationTitle("설정")
+        }
     }
 }
 
