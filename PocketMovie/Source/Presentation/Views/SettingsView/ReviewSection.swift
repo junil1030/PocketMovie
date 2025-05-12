@@ -18,6 +18,7 @@ struct ReviewSection: View {
                 Image(systemName: "star.bubble")
                     .foregroundColor(.yellow)
                 Text("앱 리뷰 작성")
+                    .foregroundColor(.yellow)
             }
         }
         .sheet(isPresented: $showReviewForm) {
