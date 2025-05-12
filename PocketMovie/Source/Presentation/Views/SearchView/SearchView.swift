@@ -83,6 +83,7 @@ struct SearchView: View {
                 if !viewModel.searchKeyword.isEmpty {
                     Button {
                         viewModel.searchKeyword = ""
+                        viewModel.searchResults.removeAll()
                     } label: {
                         Image(systemName: "xmark.circle.fill")
                             .foregroundColor(.gray)
