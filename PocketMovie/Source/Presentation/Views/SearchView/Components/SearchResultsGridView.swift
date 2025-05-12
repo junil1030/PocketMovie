@@ -41,7 +41,7 @@ struct SearchResultsGridView: View {
                 
                 LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(searchResults) { movie in
-                        NavigationLink(destination: Text("영화 카드 생성 화면")) {
+                        NavigationLink(destination: CardCreationView(movie: movie)) {
                             MoviePosterView(movie: movie)
                         }
                     }
