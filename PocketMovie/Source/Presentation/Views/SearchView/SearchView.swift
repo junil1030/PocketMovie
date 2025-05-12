@@ -14,63 +14,65 @@ struct SearchView: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        ScrollView(.vertical) {
-            LazyVStack(spacing: 15) {
-                if !viewModel.searchKeyword.isEmpty {
-                    
-                    SearchResultsGridView(
-                        searchResults: viewModel.searchResults,
-                        isLoading: viewModel.isLoading,
-                        error: viewModel.error
-                    )
-                } else {
-                    
-                    // 일간 박스오피스
-                    BoxOfficeView(
-                        title: "일간 박스오피스",
-                        items: viewModel.dailyBoxOfficeList.map { $0.movieNm },
-                        isLoading: viewModel.isLoadingBoxOffice,
-                        error: viewModel.boxOfficeError,
-                        getPosterURL: viewModel.getPosterURL
-                    )
-                    
-                    // 주간 박스오피스
-                    BoxOfficeView(
-                        title: "주간 박스오피스",
-                        items: viewModel.weeklyBoxOfficeList.map { $0.movieNm },
-                        isLoading: viewModel.isLoadingBoxOffice,
-                        error: viewModel.boxOfficeError,
-                        getPosterURL: viewModel.getPosterURL
+        NavigationStack {
+            ScrollView(.vertical) {
+                LazyVStack(spacing: 15) {
+                    if !viewModel.searchKeyword.isEmpty {
+                        
+                        SearchResultsGridView(
+                            searchResults: viewModel.searchResults,
+                            isLoading: viewModel.isLoading,
+                            error: viewModel.error
+                        )
+                    } else {
+                        
+                        // 일간 박스오피스
+                        BoxOfficeView(
+                            title: "일간 박스오피스",
+                            items: viewModel.dailyBoxOfficeList.map { $0.movieNm },
+                            isLoading: viewModel.isLoadingBoxOffice,
+                            error: viewModel.boxOfficeError,
+                            posterURLs: viewModel.getPosterURLs()
+                        )
+                        
+                        // 주간 박스오피스
+                        BoxOfficeView(
+                            title: "주간 박스오피스",
+                            items: viewModel.weeklyBoxOfficeList.map { $0.movieNm },
+                            isLoading: viewModel.isLoadingBoxOffice,
+                            error: viewModel.boxOfficeError,
+                            posterURLs: viewModel.getPosterURLs()
+                        )
+                    }
+                }
+                .padding(15)
+                .offset(y: isFocused ? 0 : progress * 75)
+                .safeAreaInset(edge: .top, spacing: 0) {
+                    SearchHeaderView(
+                        searchKeyword: $viewModel.searchKeyword,
+                        isFocused: $isFocused,
+                        progress: progress,
+                        onSubmit: {
+                            viewModel.searchMovies()
+                        },
+                        onClear: {
+                            viewModel.searchKeyword = ""
+                        }
                     )
                 }
+                .scrollTargetLayout()
             }
-            .padding(15)
-            .offset(y: isFocused ? 0 : progress * 75)
-            .safeAreaInset(edge: .top, spacing: 0) {
-                SearchHeaderView(
-                    searchKeyword: $viewModel.searchKeyword,
-                    isFocused: $isFocused,
-                    progress: progress,
-                    onSubmit: {
-                        viewModel.searchMovies()
-                    },
-                    onClear: {
-                        viewModel.searchKeyword = ""
-                    }
-                )
+            .scrollTargetBehavior(CustomScrollTarget())
+            .animation(.snappy(duration: 0.3, extraBounce: 0), value: isFocused)
+            .onScrollGeometryChange(for: CGFloat.self) {
+                $0.contentOffset.y + $0.contentInsets.top
+            } action: { oldValue, newValue in
+                progress = max(min(newValue / 75, 1), 0)
             }
-            .scrollTargetLayout()
-        }
-        .scrollTargetBehavior(CustomScrollTarget())
-        .animation(.snappy(duration: 0.3, extraBounce: 0), value: isFocused)
-        .onScrollGeometryChange(for: CGFloat.self) {
-            $0.contentOffset.y + $0.contentInsets.top
-        } action: { oldValue, newValue in
-            progress = max(min(newValue / 75, 1), 0)
-        }
-        .onAppear {
-            if viewModel.dailyBoxOfficeList.isEmpty || viewModel.weeklyBoxOfficeList.isEmpty {
-                viewModel.loadBoxOfficeData()
+            .onAppear {
+                if viewModel.dailyBoxOfficeList.isEmpty || viewModel.weeklyBoxOfficeList.isEmpty {
+                    viewModel.loadBoxOfficeData()
+                }
             }
         }
     }
