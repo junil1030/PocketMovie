@@ -52,5 +52,5 @@ struct BoxOfficeView: View {
 }
 
 #Preview {
-    BoxOfficeView()
+    //BoxOfficeView()
 }
