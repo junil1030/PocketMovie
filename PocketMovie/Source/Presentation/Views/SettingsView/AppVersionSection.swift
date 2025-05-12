@@ -9,7 +9,12 @@ import SwiftUI
 
 struct AppVersionSection: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Text("버전")
+            Spacer()
+            Text("\(Constants.getAppVersion())")
+                .foregroundColor(.gray)
+        }
     }
 }
 
