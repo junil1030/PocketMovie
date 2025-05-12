@@ -8,8 +8,21 @@
 import SwiftUI
 
 struct ReviewSection: View {
+    @State private var showReviewForm = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button {
+            showReviewForm = true
+        } label: {
+            HStack {
+                Image(systemName: "star.bubble")
+                    .foregroundColor(.yellow)
+                Text("앱 리뷰 작성")
+            }
+        }
+        .sheet(isPresented: $showReviewForm) {
+            // 앱 올라가면 링크 넣어서 리뷰 창 띄우기
+        }
     }
 }
 
