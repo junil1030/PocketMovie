@@ -63,6 +63,11 @@ final class DIContainer {
             let repository = resolver.resolve(MovieRepository.self)!
             return DefaultMovieUseCase(repository: repository)
         }.inObjectScope(.container)
+        
+        container.register(DataResetUseCase.self) { resolver in
+            let repository = resolver.resolve(MovieRepository.self)!
+            return DefaultDataResetUseCase(repository: repository)
+        }.inObjectScope(.container)
     }
     
     //MARK: - ViewModels
@@ -75,6 +80,11 @@ final class DIContainer {
         
         container.register(SearchViewModel.self) { _ in
             return SearchViewModel()
+        }.inObjectScope(.container)
+        
+        container.register(SettingsViewModel.self) { resolver in
+            let useCase = resolver.resolve(DataResetUseCase.self)!
+            return SettingsViewModel(dataResetUseCase: useCase)
         }.inObjectScope(.container)
     }
 }
