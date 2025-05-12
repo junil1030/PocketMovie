@@ -166,7 +166,7 @@ class SearchViewModel: ObservableObject {
         }
     }
     
-    func getPosterURLs() -> [String: String]{
-        return posterURLs
+    func getPosterURL(for movieTitle: String) -> String? {
+        return posterURLs[movieTitle]
     }
 }
