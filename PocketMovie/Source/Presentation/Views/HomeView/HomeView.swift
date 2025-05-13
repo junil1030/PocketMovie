@@ -9,16 +9,6 @@ import SwiftUI
 import Kingfisher
 import SwiftData
 
-// 영화 카드 모델 (표시 목적으로 사용)
-struct MovieCardViewModel: Identifiable {
-    var id: String
-    var title: String
-    var releaseDate: String
-    var posterURL: String
-    var rating: Double
-    var review: String
-}
-
 struct HomeView: View {
     @StateObject private var viewModel = DIContainer.shared.container.resolve(HomeViewModel.self)!
     
@@ -32,42 +22,6 @@ struct HomeView: View {
     private let cardCornerRadius: CGFloat = 30
     private let cardBackgroundCornerRadius: CGFloat = 35
     
-    // 샘플 데이터 (나중에 SwiftData에서 가져온 데이터로 대체)
-    @State private var sampleMovies: [MovieCardViewModel] = [
-        MovieCardViewModel(
-            id: UUID().uuidString,
-            title: "인터스텔라",
-            releaseDate: "2014-11-06",
-            posterURL: "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg",
-            rating: 4.8,
-            review: "4번 봐서 지겨움 그만 보자"
-        ),
-        MovieCardViewModel(
-            id: UUID().uuidString,
-            title: "어벤져스: 엔드게임",
-            releaseDate: "2019-04-24",
-            posterURL: "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg",
-            rating: 4.5,
-            review: "역사상 최고의 영화"
-        ),
-        MovieCardViewModel(
-            id: UUID().uuidString,
-            title: "기생충",
-            releaseDate: "2019-05-30",
-            posterURL: "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg",
-            rating: 4.6,
-            review: "킬링 타임으로 낫배드긴 함 ㅇㅇ"
-        ),
-        MovieCardViewModel(
-            id: UUID().uuidString,
-            title: "듄",
-            releaseDate: "2021-10-20",
-            posterURL: "https://m.media-amazon.com/images/M/MV5BN2FjNmEyNWMtYzM0ZS00NjIyLTg5YzYtYThlMGVjNzE1OGViXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg",
-            rating: 4.3,
-            review: "중간에 좀 졸아서 다시 봐야 되기"
-        )
-    ]
-    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -77,7 +31,6 @@ struct HomeView: View {
                     deleteButton
                 }
             }
-            //.navigationTitle("Pocket Movie")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Text("Pocket Movie")
@@ -98,7 +51,7 @@ struct HomeView: View {
     
     private var mainContent: some View {
         Group {
-            if viewModel.movies.isEmpty && sampleMovies.isEmpty {
+            if viewModel.movies.isEmpty {
                 emptyStateView
             } else {
                 cardStackView
@@ -124,14 +77,8 @@ struct HomeView: View {
             let width = geometry.size.width
             
             LoopingStack(maxTranslationWidth: width) {
-                if viewModel.movies.isEmpty {
-                    ForEach(sampleMovies) { movie in
-                        createCardView(for: movie)
-                    }
-                } else {
-                    ForEach(viewModel.movies) { movie in
-                        createCardView(for: convertToViewModel(movie))
-                    }
+                ForEach(viewModel.movies) { movie in
+                    createCardView(for: movie)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -179,33 +126,22 @@ struct HomeView: View {
     
     // MARK: - Helper Functions
     
-    private func createCardView(for movie: MovieCardViewModel) -> some View {
+    private func createCardView(for movie: Movie) -> some View {
         MovieCardView(
             movie: movie,
-            isSelected: selectedMovies.contains(movie.id),
-            isFlipped: flippedCards.contains(movie.id),
+            isSelected: selectedMovies.contains(String(movie.id.hashValue)),
+            isFlipped: flippedCards.contains(String(movie.id.hashValue)),
             cardWidth: cardWidth,
             cardHeight: cardHeight,
             cardCornerRadius: cardCornerRadius,
             cardBackgroundCornerRadius: cardBackgroundCornerRadius,
             onTap: {
                 if isSelectionMode {
-                    toggleMovieSelection(id: movie.id)
+                    toggleMovieSelection(id: String(movie.id.hashValue))
                 } else {
-                    toggleCardFlip(id: movie.id)
+                    toggleCardFlip(id: String(movie.id.hashValue))
                 }
             }
-        )
-    }
-    
-    private func convertToViewModel(_ movie: Movie) -> MovieCardViewModel {
-        return MovieCardViewModel(
-            id: String(movie.id.hashValue), // PersistentIdentifier를 hashValue로 변환 후 문자열화
-            title: movie.title,
-            releaseDate: movie.releaseDate,
-            posterURL: movie.posterURL ?? "",
-            rating: movie.rating,
-            review: movie.review
         )
     }
     
@@ -226,20 +162,13 @@ struct HomeView: View {
     }
     
     private func deleteSelectedMovies() {
-        if !viewModel.movies.isEmpty {
-            // 선택된 ID에 해당하는 영화 객체 찾기
-            let moviesToDelete = viewModel.movies.filter { movie in
-                selectedMovies.contains(String(movie.id.hashValue))
-            }
-            
-            if !moviesToDelete.isEmpty {
-                viewModel.deleteMovies(moviesToDelete)
-            }
-        } else {
-            // 샘플 데이터에서 삭제
-            sampleMovies.removeAll { movie in
-                selectedMovies.contains(movie.id)
-            }
+        // 선택된 ID에 해당하는 영화 객체 찾기
+        let moviesToDelete = viewModel.movies.filter { movie in
+            selectedMovies.contains(String(movie.id.hashValue))
+        }
+        
+        if !moviesToDelete.isEmpty {
+            viewModel.deleteMovies(moviesToDelete)
         }
         
         // 선택 모드 종료 및 선택 초기화
@@ -250,7 +179,7 @@ struct HomeView: View {
 
 // MARK: - MovieCardView
 struct MovieCardView: View {
-    let movie: MovieCardViewModel
+    let movie: Movie
     let isSelected: Bool
     let isFlipped: Bool
     let cardWidth: CGFloat
@@ -293,7 +222,7 @@ struct MovieCardView: View {
 
 // MARK: - PosterCardView
 struct PosterCardView: View {
-    let movie: MovieCardViewModel
+    let movie: Movie
     let isSelected: Bool
     let cardWidth: CGFloat
     let cardHeight: CGFloat
@@ -305,18 +234,31 @@ struct PosterCardView: View {
             // 여기서 전체 카드 사이즈를 적용
             ZStack {
                 // 포스터 이미지
-                KFImage(URL(string: movie.posterURL))
-                    .resizable()
-                    .placeholder {
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.2))
-                            .overlay(
-                                ProgressView()
-                            )
-                    }
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: cardWidth, height: cardHeight)
-                    .clipped()
+                if let posterURL = movie.posterURL, let url = URL(string: posterURL) {
+                    KFImage(url)
+                        .resizable()
+                        .placeholder {
+                            Rectangle()
+                                .fill(Color.gray.opacity(0.2))
+                                .overlay(
+                                    ProgressView()
+                                )
+                        }
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: cardWidth, height: cardHeight)
+                        .clipped()
+                } else {
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: cardWidth, height: cardHeight)
+                        .overlay(
+                            Text(movie.title)
+                                .font(.headline)
+                                .foregroundColor(.gray)
+                                .multilineTextAlignment(.center)
+                                .padding()
+                        )
+                }
                 
                 // 평점 그라데이션 마스크
                 VStack(alignment: .leading) {
@@ -373,7 +315,7 @@ struct PosterCardView: View {
 
 // MARK: - ReviewCardView
 struct ReviewCardView: View {
-    let movie: MovieCardViewModel
+    let movie: Movie
     let cardWidth: CGFloat
     let cardHeight: CGFloat
     let cardCornerRadius: CGFloat
