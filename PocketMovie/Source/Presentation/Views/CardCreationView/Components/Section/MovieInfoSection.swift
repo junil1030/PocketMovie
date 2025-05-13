@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MovieInfoSection: View {
     let movie: KMDBMovie
-    @Binding var rating: Int
     
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
@@ -26,9 +25,6 @@ struct MovieInfoSection: View {
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
-                
-                // 평점 선택 (별 5개)
-                RatingSelectionSection(rating: $rating)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
