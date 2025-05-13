@@ -8,11 +8,19 @@
 import SwiftUI
 
 struct SelectionModeButton: View {
+    @Binding var isSelectionMode: Bool
+    var onToggle: () -> Void
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button {
+            isSelectionMode.toggle()
+            onToggle()
+        } label: {
+            Image(systemName: isSelectionMode ? "checkmark.circle.fill" : "ellipsis")
+        }
     }
 }
 
 #Preview {
-    SelectionModeButton()
+    //SelectionModeButton()
 }
