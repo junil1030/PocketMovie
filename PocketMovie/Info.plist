@@ -2,11 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSAppTransportSecurity</key>
-	<dict/>
 	<key>KMDB_API_KEY</key>
 	<string>$(KMDB_API_KEY)</string>
 	<key>KOBIS_API_KEY</key>
 	<string>$(KOBIS_API_KEY)</string>
+	<key>NSAppTransportSecurity</key>
+	<dict/>
 </dict>
 </plist>
