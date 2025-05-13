@@ -26,8 +26,12 @@ struct RatingSelectionSection: View {
                             }
                         }
                 }
+                
+                Spacer()
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal)
     }
 }
 
