@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct DeleteButtonView: View {
+    let action: () -> Void
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button(action: action) {
+                    Image(systemName: "trash.fill")
+                        .font(.title)
+                        .foregroundColor(.red)
+                        .padding()
+                        .background(Circle().fill(.ultraThinMaterial))
+                        .shadow(radius: 3)
+                }
+                .padding(.trailing, 20)
+                .padding(.bottom, 20)
+            }
+        }
     }
 }
 
 #Preview {
-    DeleteButtonView()
+    //DeleteButtonView()
 }
