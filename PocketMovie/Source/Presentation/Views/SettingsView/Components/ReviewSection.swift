@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct ReviewSection: View {
-    @State private var showReviewForm = false
-    
     var body: some View {
         Button {
-            showReviewForm = true
+            showReviewPage()
         } label: {
             HStack {
                 Image(systemName: "star.bubble")
@@ -21,9 +19,13 @@ struct ReviewSection: View {
                     .foregroundColor(.yellow)
             }
         }
-        .sheet(isPresented: $showReviewForm) {
-            // 앱 올라가면 링크 넣어서 리뷰 창 띄우기
-        }
+    }
+    
+    private func showReviewPage() {
+        let urlString = "itms-apps://itunes.apple.com/app/id6745817964"
+        guard let url = URL(string: urlString) else { return }
+        
+        UIApplication.shared.open(url)
     }
 }
 
