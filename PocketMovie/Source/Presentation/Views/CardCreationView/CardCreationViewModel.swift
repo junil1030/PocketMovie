@@ -29,7 +29,6 @@ class CardCreationViewModel: ObservableObject {
         do {
             let newMovie = Movie(
                 title: movie.cleanTitle,
-                movieCode: movie.DOCID,
                 releaseDate: movie.repRlsDate,
                 posterURL: movie.firstPosterURL,
                 rating: rating,
