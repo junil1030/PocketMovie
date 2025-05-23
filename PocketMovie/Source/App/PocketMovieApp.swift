@@ -17,7 +17,7 @@ struct PocketMovieApp: App {
         }
     }
     
-    // MARK: - UI 테스트 지원
+    // MARK: - UI 테스트
     private var isUITesting: Bool {
         ProcessInfo.processInfo.arguments.contains("--uitesting") ||
         ProcessInfo.processInfo.environment["UITEST_MODE"] == "true"
