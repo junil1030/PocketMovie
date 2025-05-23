@@ -17,11 +17,9 @@ struct PocketMovieApp: App {
                 MainTabView()
             } else {
                 ProgressView()
-                    .onAppear {
-                        Task {
-                            await DIContainer.shared.registerMain()
-                            isReady = true
-                        }
+                    .task {
+                        await DIContainer.shared.registerMain()
+                        isReady = true
                     }
             }
         }

@@ -23,7 +23,7 @@ struct SettingsView: View {
                 
                 // 앱 피드백 섹션
                 Section(header: Text("서비스")) {
-                    //ReviewSection()
+                    ReviewSection()
                     
                     EmailSection()
                 }
