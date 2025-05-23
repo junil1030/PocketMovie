@@ -20,7 +20,6 @@ final class Movie {
     
     init(
         title: String,
-        movieCode: String,
         releaseDate: String,
         posterURL: String? = nil,
         rating: Double,
