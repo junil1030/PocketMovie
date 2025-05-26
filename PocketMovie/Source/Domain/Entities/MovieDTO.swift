@@ -28,8 +28,8 @@ struct MovieDTO: Identifiable, Codable {
 }
 
 struct WidgetDataContainer: Codable {
-    let movies: [MovieDTO]
-    let lastUpdated: Date
+    var movies: [MovieDTO]
+    var lastUpdated: Date
     
     static let empty = WidgetDataContainer(movies: [], lastUpdated: Date())
 }
