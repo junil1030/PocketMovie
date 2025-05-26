@@ -10,9 +10,19 @@
 		F92855122DC32CE90045D90B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F92855112DC32CE90045D90B /* Alamofire */; };
 		F92855152DC32D1C0045D90B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F92855142DC32D1C0045D90B /* Kingfisher */; };
 		F95E4BC92DC3502A00BEA474 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = F95E4BC82DC3502A00BEA474 /* Swinject */; };
+		F9CD221A2DE4AD1E00AB1C66 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CD22192DE4AD1E00AB1C66 /* WidgetKit.framework */; };
+		F9CD221C2DE4AD1E00AB1C66 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CD221B2DE4AD1E00AB1C66 /* SwiftUI.framework */; };
+		F9CD22292DE4AD1F00AB1C66 /* PocketMovieWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F9CD22172DE4AD1E00AB1C66 /* PocketMovieWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F9CD22272DE4AD1F00AB1C66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F9FD56B02DC1FF8500572D04 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F9CD22162DE4AD1E00AB1C66;
+			remoteInfo = PocketMovieWidgetExtension;
+		};
 		F9FD56C92DC1FF8700572D04 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F9FD56B02DC1FF8500572D04 /* Project object */;
@@ -29,7 +39,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		F9CD222E2DE4AD1F00AB1C66 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F9CD22292DE4AD1F00AB1C66 /* PocketMovieWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		F9CD22172DE4AD1E00AB1C66 /* PocketMovieWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PocketMovieWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CD22192DE4AD1E00AB1C66 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		F9CD221B2DE4AD1E00AB1C66 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F9FD56B82DC1FF8500572D04 /* PocketMovie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketMovie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9FD56C82DC1FF8700572D04 /* PocketMovieTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PocketMovieTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9FD56D22DC1FF8700572D04 /* PocketMovieUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PocketMovieUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +70,13 @@
 			);
 			target = F9FD56B72DC1FF8500572D04 /* PocketMovie */;
 		};
+		F9CD222D2DE4AD1F00AB1C66 /* Exceptions for "PocketMovieWidget" folder in "PocketMovieWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F9CD22162DE4AD1E00AB1C66 /* PocketMovieWidgetExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +86,14 @@
 				F95E4BE52DC37E8D00BEA474 /* Exceptions for "PocketMovie" folder in "PocketMovie" target */,
 			);
 			path = PocketMovie;
+			sourceTree = "<group>";
+		};
+		F9CD221D2DE4AD1E00AB1C66 /* PocketMovieWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F9CD222D2DE4AD1F00AB1C66 /* Exceptions for "PocketMovieWidget" folder in "PocketMovieWidgetExtension" target */,
+			);
+			path = PocketMovieWidget;
 			sourceTree = "<group>";
 		};
 		F9FD56CB2DC1FF8700572D04 /* PocketMovieTests */ = {
@@ -67,6 +109,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F9CD22142DE4AD1E00AB1C66 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9CD221C2DE4AD1E00AB1C66 /* SwiftUI.framework in Frameworks */,
+				F9CD221A2DE4AD1E00AB1C66 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F9FD56B52DC1FF8500572D04 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -94,12 +145,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F9CD22182DE4AD1E00AB1C66 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F9CD22192DE4AD1E00AB1C66 /* WidgetKit.framework */,
+				F9CD221B2DE4AD1E00AB1C66 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F9FD56AF2DC1FF8500572D04 = {
 			isa = PBXGroup;
 			children = (
 				F95E4BBF2DC34F7D00BEA474 /* PocketMovie */,
 				F9FD56CB2DC1FF8700572D04 /* PocketMovieTests */,
 				F9FD56D52DC1FF8700572D04 /* PocketMovieUITests */,
+				F9CD221D2DE4AD1E00AB1C66 /* PocketMovieWidget */,
+				F9CD22182DE4AD1E00AB1C66 /* Frameworks */,
 				F9FD56B92DC1FF8500572D04 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -110,6 +172,7 @@
 				F9FD56B82DC1FF8500572D04 /* PocketMovie.app */,
 				F9FD56C82DC1FF8700572D04 /* PocketMovieTests.xctest */,
 				F9FD56D22DC1FF8700572D04 /* PocketMovieUITests.xctest */,
+				F9CD22172DE4AD1E00AB1C66 /* PocketMovieWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,6 +180,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F9CD22162DE4AD1E00AB1C66 /* PocketMovieWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F9CD222A2DE4AD1F00AB1C66 /* Build configuration list for PBXNativeTarget "PocketMovieWidgetExtension" */;
+			buildPhases = (
+				F9CD22132DE4AD1E00AB1C66 /* Sources */,
+				F9CD22142DE4AD1E00AB1C66 /* Frameworks */,
+				F9CD22152DE4AD1E00AB1C66 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F9CD221D2DE4AD1E00AB1C66 /* PocketMovieWidget */,
+			);
+			name = PocketMovieWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = PocketMovieWidgetExtension;
+			productReference = F9CD22172DE4AD1E00AB1C66 /* PocketMovieWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		F9FD56B72DC1FF8500572D04 /* PocketMovie */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F9FD56DC2DC1FF8700572D04 /* Build configuration list for PBXNativeTarget "PocketMovie" */;
@@ -124,10 +209,12 @@
 				F9FD56B42DC1FF8500572D04 /* Sources */,
 				F9FD56B52DC1FF8500572D04 /* Frameworks */,
 				F9FD56B62DC1FF8500572D04 /* Resources */,
+				F9CD222E2DE4AD1F00AB1C66 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F9CD22282DE4AD1F00AB1C66 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				F95E4BBF2DC34F7D00BEA474 /* PocketMovie */,
@@ -195,9 +282,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1620;
+				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					F9CD22162DE4AD1E00AB1C66 = {
+						CreatedOnToolsVersion = 16.3;
+					};
 					F9FD56B72DC1FF8500572D04 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -233,11 +323,19 @@
 				F9FD56B72DC1FF8500572D04 /* PocketMovie */,
 				F9FD56C72DC1FF8700572D04 /* PocketMovieTests */,
 				F9FD56D12DC1FF8700572D04 /* PocketMovieUITests */,
+				F9CD22162DE4AD1E00AB1C66 /* PocketMovieWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F9CD22152DE4AD1E00AB1C66 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F9FD56B62DC1FF8500572D04 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,6 +360,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F9CD22132DE4AD1E00AB1C66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F9FD56B42DC1FF8500572D04 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -286,6 +391,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F9CD22282DE4AD1F00AB1C66 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F9CD22162DE4AD1E00AB1C66 /* PocketMovieWidgetExtension */;
+			targetProxy = F9CD22272DE4AD1F00AB1C66 /* PBXContainerItemProxy */;
+		};
 		F9FD56CA2DC1FF8700572D04 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F9FD56B72DC1FF8500572D04 /* PocketMovie */;
@@ -299,6 +409,64 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		F9CD222B2DE4AD1F00AB1C66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MWBS4R8DBQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PocketMovieWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PocketMovieWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.junil.PocketMovie.PocketMovieWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F9CD222C2DE4AD1F00AB1C66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MWBS4R8DBQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PocketMovieWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PocketMovieWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.junil.PocketMovie.PocketMovieWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		F9FD56DA2DC1FF8700572D04 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = F95E4BBF2DC34F7D00BEA474 /* PocketMovie */;
@@ -571,6 +739,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F9CD222A2DE4AD1F00AB1C66 /* Build configuration list for PBXNativeTarget "PocketMovieWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9CD222B2DE4AD1F00AB1C66 /* Debug */,
+				F9CD222C2DE4AD1F00AB1C66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F9FD56B32DC1FF8500572D04 /* Build configuration list for PBXProject "PocketMovie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
