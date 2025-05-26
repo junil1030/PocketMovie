@@ -9,6 +9,12 @@ import SwiftUI
 struct Constants {
     static let engTitle = "PocketMovie"
     
+    struct Widget {
+        static let dataKey = "widget_data"
+        static let appGroupIdentifier = "group.com.junil.PocketMovie"
+        static let kind = "PocketMovieWidget"
+    }
+    
     static func getDevieceModelName() -> String {
         return UIDevice.current.model
     }
