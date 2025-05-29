@@ -15,7 +15,7 @@ class SearchViewModel: ObservableObject {
     
     // 검색 관련
     @Published var searchKeyword = ""
-    @Published var searchResults: [KMDBMovie] = []
+    @Published var searchResults: [TMDBMovie] = []
     @Published var isLoading = false
     @Published var error: Error?
     
@@ -53,9 +53,7 @@ class SearchViewModel: ObservableObject {
                     self?.error = error
                 }
             } receiveValue: { [weak self] response in
-                if let movies = response.Data.first?.Result {
-                    self?.searchResults = movies
-                }
+                self?.searchResults = response.results
             }
             .store(in: &cancellables)
     }
@@ -94,7 +92,7 @@ class SearchViewModel: ObservableObject {
                 
                 if !(self?.weeklyBoxOfficeList.isEmpty ?? true) {
                     self?.isLoadingBoxOffice = false
-                    self?.loadAllPosters()
+                    self?.loadBoxOfficePosterImages()
                 }
             }
             .store(in: &cancellables)
@@ -113,13 +111,48 @@ class SearchViewModel: ObservableObject {
                 
                 if !(self?.dailyBoxOfficeList.isEmpty ?? true) {
                     self?.isLoadingBoxOffice = false
-                    self?.loadAllPosters()
+                    self?.loadBoxOfficePosterImages()
                 }
             }
             .store(in: &cancellables)
     }
     
-    private func createMovieList() -> [(title: String, releaseDate: String)] {
+    // KOBIS 박스오피스 영화들의 포스터를 TMDB에서 검색해서 가져오기
+    private func loadBoxOfficePosterImages() {
+        guard !posterLoadingStarted else { return }
+        posterLoadingStarted = true
+        
+        let movieList = createBoxOfficeMovieList()
+        let group = DispatchGroup()
+        
+        for movie in movieList {
+            group.enter()
+            
+            // TMDB에서 영화 제목으로 검색
+            movieAPIService.searchMovies(keyword: movie.title)
+                .receive(on: DispatchQueue.main)
+                .sink { completion in
+                    group.leave()
+                } receiveValue: { [weak self] response in
+                    // 검색 결과에서 가장 적합한 영화 찾기 (개봉년도 비교 등)
+                    if let foundMovie = self?.findBestMatch(
+                        searchResults: response.results,
+                        targetTitle: movie.title,
+                        targetReleaseDate: movie.releaseDate
+                    ) {
+                        self?.posterURLs[movie.title] = foundMovie.fullPosterURL
+                    }
+                }
+                .store(in: &cancellables)
+        }
+        
+        group.notify(queue: .main) { [weak self] in
+            self?.posterLoadingComplete = true
+        }
+    }
+    
+    // 박스오피스 영화 목록 생성
+    private func createBoxOfficeMovieList() -> [(title: String, releaseDate: String)] {
         var movieList = [String: String]()
         
         for movie in dailyBoxOfficeList {
@@ -135,38 +168,35 @@ class SearchViewModel: ObservableObject {
         return movieList.map { (title: $0.key, releaseDate: $0.value) }
     }
     
-    func loadAllPosters() {
-        guard !posterLoadingStarted else { return }
-        posterLoadingStarted = true
+    // TMDB 검색 결과에서 가장 적합한 영화 찾기
+    private func findBestMatch(
+        searchResults: [TMDBMovie],
+        targetTitle: String,
+        targetReleaseDate: String
+    ) -> TMDBMovie? {
+        guard !searchResults.isEmpty else { return nil }
         
-        let movieList = createMovieList()
-        let group = DispatchGroup()
-        
-        for movie in movieList {
-            group.enter()
-            
-            movieAPIService.searchMovieWithReleaseDate(keyword: movie.title, releaseDts: movie.releaseDate)
-                .receive(on: DispatchQueue.main)
-                .sink { completion in
-                    group.leave()
-                } receiveValue: { [weak self] response in
-                    if let foundMovie = response.Data.first?.Result.first {
-                        if movie.releaseDate.replacingOccurrences(of: "-", with: "") == foundMovie.repRlsDate {
-                            self?.posterURLs[movie.title] = foundMovie.firstPosterURL
-                        } else {
-                            self?.posterURLs[movie.title] = nil
-                        }
-                    }
-                }
-                .store(in: &cancellables)
+        // 1. 제목이 정확히 일치하는 영화 찾기
+        if let exactMatch = searchResults.first(where: {
+            $0.title.lowercased() == targetTitle.lowercased() ||
+            $0.originalTitle.lowercased() == targetTitle.lowercased()
+        }) {
+            return exactMatch
         }
         
-        group.notify(queue: .main) { [weak self] in
-            self?.posterLoadingComplete = true
+        // 2. 개봉년도가 비슷한 영화 찾기
+        let targetYear = String(targetReleaseDate.prefix(4))
+        if let yearMatch = searchResults.first(where: {
+            $0.releaseDate.hasPrefix(targetYear)
+        }) {
+            return yearMatch
         }
+        
+        // 3. 그냥 첫 번째 결과 반환
+        return searchResults.first
     }
     
-    func getPosterURLs() -> [String: String]{
+    func getPosterURLs() -> [String: String] {
         return posterURLs
     }
 }
