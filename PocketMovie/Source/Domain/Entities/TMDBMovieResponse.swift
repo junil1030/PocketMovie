@@ -43,6 +43,11 @@ struct TMDBMovie: Codable, Identifiable {
         return "https://image.tmdb.org/t/p/w500\(posterPath)"
     }
     
+    var backdropURL: String? {
+        guard let backdropPath = backdropPath else { return nil }
+        return "https://image.tmdb.org/t/p/w1280\(backdropPath)"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id, title, overview
         case originalTitle = "original_title"
