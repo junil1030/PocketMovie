@@ -9,12 +9,12 @@ import SwiftUI
 import Kingfisher
 
 struct MoviePosterView: View {
-    let movie: KMDBMovie
+    let movie: TMDBMovie
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             // 포스터 이미지
-            if let posterURL = movie.firstPosterURL {
+            if let posterURL = movie.fullPosterURL {
                 KFImage(URL(string: posterURL))
                     .resizable()
                     .placeholder {
@@ -40,7 +40,7 @@ struct MoviePosterView: View {
             }
             
             // 영화 제목
-            Text(movie.cleanTitle)
+            Text(movie.title)
                 .font(.caption)
                 .lineLimit(1)
                 .truncationMode(.tail)

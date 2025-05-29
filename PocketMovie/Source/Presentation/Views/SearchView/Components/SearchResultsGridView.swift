@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchResultsGridView: View {
-    let searchResults: [KMDBMovie]
+    let searchResults: [TMDBMovie]
     let isLoading: Bool
     let error: Error?
     
