@@ -11,8 +11,12 @@ import Combine
 protocol MovieAPIService {
     func fetchDailyBoxOffice(date: String) -> AnyPublisher<DailyBoxOfficeResponse, Error>
     func fetchWeeklyBoxOffice(date: String, weekGb: String) -> AnyPublisher<WeeklyBoxOfficeResponse, Error>
-    func searchMovies(keyword: String) -> AnyPublisher<KMDBMovieResponse, Error>
-    func searchMovieWithReleaseDate(keyword: String, releaseDts: String) -> AnyPublisher<KMDBMovieResponse, Error>
+    
+//    func searchMovies(keyword: String) -> AnyPublisher<KMDBMovieResponse, Error>
+//    func searchMovieWithReleaseDate(keyword: String, releaseDts: String) -> AnyPublisher<KMDBMovieResponse, Error>
+    
+    func searchMovies(keyword: String) -> AnyPublisher<TMDBMovieResponse, Error>
+    func getMovieDetail(movieId: Int) -> AnyPublisher<TMDBMovie, Error>
 }
 
 final class DefaultMovieAPIService: MovieAPIService {
@@ -32,13 +36,23 @@ final class DefaultMovieAPIService: MovieAPIService {
         return networkClient.request(endpoint)
     }
     
-    func searchMovies(keyword: String) -> AnyPublisher<KMDBMovieResponse, Error> {
-        let endpoint = KMDBAPIEndpoint.searchMovies(keyword: keyword)
+//    func searchMovies(keyword: String) -> AnyPublisher<KMDBMovieResponse, Error> {
+//        let endpoint = KMDBAPIEndpoint.searchMovies(keyword: keyword)
+//        return networkClient.request(endpoint)
+//    }
+//    
+//    func searchMovieWithReleaseDate(keyword: String, releaseDts: String) -> AnyPublisher<KMDBMovieResponse, any Error> {
+//        let endpoint = KMDBAPIEndpoint.searchMovieWithReleaseDate(keyword: keyword, releaseDts: releaseDts)
+//        return networkClient.request(endpoint)
+//    }
+    
+    func searchMovies(keyword: String) -> AnyPublisher<TMDBMovieResponse, Error> {
+        let endpoint = TMDBAPIEndpoint.searchMovies(keyword: keyword)
         return networkClient.request(endpoint)
     }
     
-    func searchMovieWithReleaseDate(keyword: String, releaseDts: String) -> AnyPublisher<KMDBMovieResponse, any Error> {
-        let endpoint = KMDBAPIEndpoint.searchMovieWithReleaseDate(keyword: keyword, releaseDts: releaseDts)
+    func getMovieDetail(movieId: Int) -> AnyPublisher<TMDBMovie, Error> {
+        let endpoint = TMDBAPIEndpoint.movieDetail(movieId: movieId)
         return networkClient.request(endpoint)
     }
 }
