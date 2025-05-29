@@ -46,7 +46,7 @@ extension TMDBAPIEndpoint: APIEndpoint {
             params["query"] = keyword
             params["page"] = page
         case .movieDetail:
-            params["append_to_response"] = "credits, videos, similar"
+            params["append_to_response"] = "credits, videos, similar, recommendations"
         }
         
         return params
