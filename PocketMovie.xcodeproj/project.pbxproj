@@ -70,6 +70,14 @@
 			);
 			target = F9FD56B72DC1FF8500572D04 /* PocketMovie */;
 		};
+		F98240AE2DE5F9AF0007F8B9 /* Exceptions for "PocketMovie" folder in "PocketMovieWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Source/Domain/Entities/Movie.swift,
+				Source/Domain/Entities/MovieDTO.swift,
+			);
+			target = F9CD22162DE4AD1E00AB1C66 /* PocketMovieWidgetExtension */;
+		};
 		F9CD222D2DE4AD1F00AB1C66 /* Exceptions for "PocketMovieWidget" folder in "PocketMovieWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -84,6 +92,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				F95E4BE52DC37E8D00BEA474 /* Exceptions for "PocketMovie" folder in "PocketMovie" target */,
+				F98240AE2DE5F9AF0007F8B9 /* Exceptions for "PocketMovie" folder in "PocketMovieWidgetExtension" target */,
 			);
 			path = PocketMovie;
 			sourceTree = "<group>";
