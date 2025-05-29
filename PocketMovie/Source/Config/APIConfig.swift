@@ -39,4 +39,20 @@ enum APIConfig {
         }
         #endif
     }
+    
+    static var tmdbAPIKey: String {
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["CI"] == "TRUE" {
+            return ProcessInfo.processInfo.environment["TMDB_API_KEY"] ?? ""
+        } else {
+            return Bundle.main.infoDictionary?["TMDB_API_KEY"] as? String ?? ""
+        }
+        #else
+        if ProcessInfo.processInfo.environment["CI"] == "TRUE" {
+            return ProcessInfo.processInfo.environment["TMDB_API_KEY"] ?? ""
+        } else {
+            return Bundle.main.infoDictionary?["TMDB_API_KEY"] as? String ?? ""
+        }
+        #endif
+    }
 }
