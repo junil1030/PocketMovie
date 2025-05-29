@@ -61,7 +61,7 @@ struct SearchBarView: View {
 
 // 영화 목록 뷰 컴포넌트
 struct MovieListView: View {
-    let searchResults: [KMDBMovie]
+    let searchResults: [TMDBMovie]
     let error: Error?
     let isLoading: Bool
     let searchKeyword: String
@@ -86,19 +86,19 @@ struct MovieListView: View {
 
 // 개별 영화 행 컴포넌트
 struct MovieRowView: View {
-    let movie: KMDBMovie
+    let movie: TMDBMovie
     
     var body: some View {
         HStack {
             // 포스터 이미지
-            PosterImageView(url: movie.firstPosterURL)
+            PosterImageView(url: movie.fullPosterURL)
             
             // 영화 정보
             VStack(alignment: .leading, spacing: 4) {
-                Text(movie.cleanTitle)
+                Text(movie.title)
                     .font(.headline)
-                if !movie.repRlsDate.isEmpty {
-                    Text("개봉일: \(movie.repRlsDate)")
+                if !movie.releaseDate.isEmpty {
+                    Text("개봉일: \(movie.releaseDate)")
                         .font(.caption)
                 }
             }
@@ -146,7 +146,7 @@ class APITestViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     @Published var searchKeyword = ""
-    @Published var searchResults: [KMDBMovie] = []
+    @Published var searchResults: [TMDBMovie] = []
     @Published var isLoading = false
     @Published var error: Error?
     
@@ -171,9 +171,7 @@ class APITestViewModel: ObservableObject {
                     self?.error = error
                 }
             } receiveValue: { [weak self] response in
-                if let movies = response.Data.first?.Result {
-                    self?.searchResults = movies
-                }
+                self?.searchResults = response.results
             }
             .store(in: &cancellables)
     }
