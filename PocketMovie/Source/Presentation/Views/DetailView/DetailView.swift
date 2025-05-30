@@ -36,8 +36,8 @@ struct DetailView: View {
                         }
                         
                         // 스틸컷 섹션
-                        if let backdropPath = movieDetail.backdropPath {
-                            PhotosSection(backdropPaths: [backdropPath])
+                        if let movieImages = viewModel.movieImages, !movieImages.backdrops.isEmpty {
+                            PhotosSection(movieImages: Array(movieImages.backdrops.prefix(10)))
                                 .padding(.top, 24)
                         }
                         
@@ -70,20 +70,6 @@ struct DetailView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-             .toolbar {
-                 ToolbarItem(placement: .navigationBarLeading) {
-                     Button("닫기") {
-                         dismiss()
-                     }
-                 }
-                 
-                 ToolbarItem(placement: .navigationBarTrailing) {
-                     NavigationLink(destination: CardCreationView(movie: movie)) {
-                         Text("카드 만들기")
-                             .fontWeight(.bold)
-                     }
-                 }
-             }
         }
         .onAppear() {
             viewModel.loadMovieDetail()
