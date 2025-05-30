@@ -47,12 +47,13 @@ struct MoviePosterItemView: View {
                     Text(movie.title)
                         .font(.caption)
                         .fontWeight(.medium)
+                        .foregroundStyle(.black)
                         .lineLimit(2)
                         .frame(width: 120, alignment: .leading)
                     
-                    // 개봉년도
+                    // 개봉 날짜
                     if !movie.releaseDate.isEmpty {
-                        Text(String(movie.releaseDate.prefix(4)))
+                        Text(String(movie.releaseDate))
                             .font(.caption2)
                             .foregroundColor(.gray)
                     }
