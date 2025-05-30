@@ -18,31 +18,35 @@ struct SearchView: View {
             ScrollView(.vertical) {
                 LazyVStack(spacing: 15) {
                     if !viewModel.searchKeyword.isEmpty {
-                        
+                        // 검색 결과
                         SearchResultsGridView(
                             searchResults: viewModel.searchResults,
                             isLoading: viewModel.isLoading,
                             error: viewModel.error
                         )
                     } else {
-                        
-                        // 일간 박스오피스
-                        BoxOfficeView(
-                            title: "일간 박스오피스",
-                            items: viewModel.dailyBoxOfficeList.map { $0.movieNm },
-                            isLoading: viewModel.isLoadingBoxOffice,
-                            error: viewModel.boxOfficeError,
-                            posterURLs: viewModel.getPosterURLs()
-                        )
-                        
-                        // 주간 박스오피스
-                        BoxOfficeView(
-                            title: "주간 박스오피스",
-                            items: viewModel.weeklyBoxOfficeList.map { $0.movieNm },
-                            isLoading: viewModel.isLoadingBoxOffice,
-                            error: viewModel.boxOfficeError,
-                            posterURLs: viewModel.getPosterURLs()
-                        )
+                        // 박스오피스 섹션들
+                        VStack(spacing: 20) {
+                            // 일간 박스오피스
+                            BoxOfficeView(
+                                title: "일간 박스오피스",
+                                movies: viewModel.dailyBoxOfficeMovies,
+                                isLoading: viewModel.isLoadingBoxOffice,
+                                error: viewModel.boxOfficeError,
+                                isDailyBoxOffice: true
+                            )
+                            
+                            // 주간 박스오피스
+                            BoxOfficeView(
+                                title: "주간 박스오피스",
+                                movies: viewModel.weeklyBoxOfficeMovies,
+                                isLoading: viewModel.isLoadingBoxOffice,
+                                error: viewModel.boxOfficeError,
+                                isDailyBoxOffice: false
+                            )
+                            
+                            Spacer(minLength: 80)
+                        }
                     }
                 }
                 .padding(15)
@@ -70,7 +74,7 @@ struct SearchView: View {
                 progress = max(min(newValue / 75, 1), 0)
             }
             .onAppear {
-                if viewModel.dailyBoxOfficeList.isEmpty || viewModel.weeklyBoxOfficeList.isEmpty {
+                if viewModel.dailyBoxOfficeMovies.isEmpty && viewModel.weeklyBoxOfficeMovies.isEmpty {
                     viewModel.loadBoxOfficeData()
                 }
             }
