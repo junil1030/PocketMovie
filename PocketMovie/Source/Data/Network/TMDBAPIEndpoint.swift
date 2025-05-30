@@ -15,6 +15,7 @@ struct TMDBAPIKeys {
 enum TMDBAPIEndpoint {
     case searchMovies(keyword: String, page: Int = 1)
     case movieDetail(movieId: Int)
+    case movieImages(movieId: Int)
 }
 
 extension TMDBAPIEndpoint: APIEndpoint {
@@ -28,6 +29,8 @@ extension TMDBAPIEndpoint: APIEndpoint {
             return "/search/movie"
         case .movieDetail(let movieId):
             return "/movie/\(movieId)"
+        case .movieImages(let movieId):
+            return "/movie/\(movieId)/images"
         }
     }
     
@@ -37,16 +40,19 @@ extension TMDBAPIEndpoint: APIEndpoint {
     
     var parameters: Parameters? {
         var params: Parameters = [
-            "api_key": TMDBAPIKeys.apiKey,
-            "language": "ko-KR"
+            "api_key": TMDBAPIKeys.apiKey
         ]
         
         switch self {
         case .searchMovies(let keyword, let page):
+            params["language"] = "ko-KR"
             params["query"] = keyword
             params["page"] = page
         case .movieDetail:
-            params["append_to_response"] = "credits, videos, similar, recommendations"
+            params["language"] = "ko-KR"
+            params["append_to_response"] = "credits,videos,similar,recommendations"
+        case .movieImages:
+            break
         }
         
         return params
