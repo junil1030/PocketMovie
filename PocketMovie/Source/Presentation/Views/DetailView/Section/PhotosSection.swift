@@ -1,5 +1,5 @@
 //
-//  PhotoSection.swift
+//  PhotosSection.swift
 //  PocketMovie
 //
 //  Created by 서준일 on 5/30/25.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Kingfisher
 
-struct PhotoSection: View {
+struct PhotosSection: View {
     let backdropPaths: [String]
     
     var body: some View {
