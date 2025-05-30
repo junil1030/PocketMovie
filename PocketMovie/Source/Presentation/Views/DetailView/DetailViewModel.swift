@@ -16,6 +16,7 @@ class DetailViewModel: ObservableObject {
     let movieId: Int
     
     @Published var movieDetail: TMDBMovieDetail?
+    @Published var movieImages: TMDBMovieImagesResponse?
     @Published var isLoading = false
     @Published var error: Error?
     
@@ -29,7 +30,10 @@ class DetailViewModel: ObservableObject {
         isLoading = true
         error = nil
         
-        movieAPIService.getMovieDetail(movieId: movieId)
+        let detailPublisher = movieAPIService.getMovieDetail(movieId: movieId)
+        let imagesPublisher = movieAPIService.getMovieImages(movieId: movieId)
+        
+        Publishers.CombineLatest(detailPublisher, imagesPublisher)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 self?.isLoading = false
@@ -37,8 +41,9 @@ class DetailViewModel: ObservableObject {
                 if case .failure(let error) = completion {
                     self?.error = error
                 }
-            } receiveValue: { [weak self] movieDetail in
+            } receiveValue: { [weak self] (movieDetail, movieImages) in
                 self?.movieDetail = movieDetail
+                self?.movieImages = movieImages
             }
             .store(in: &cancellables)
     }
