@@ -1,5 +1,5 @@
 //
-//  VideoSection.swift
+//  VideosSection.swift
 //  PocketMovie
 //
 //  Created by 서준일 on 5/30/25.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Kingfisher
 
-struct VideoSection: View {
+struct VideosSection: View {
     let videos: [Video]
     
     var body: some View {
