@@ -12,17 +12,9 @@ struct CastSection: View {
     let cast: [CastMember]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("출연진")
-                .font(.headline)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach(cast) { member in
-                        CastMemberView(member: member)
-                    }
-                }
-                .padding(.horizontal)
+        HorizontalScrollSection(title: "출연진") {
+            ForEach(cast) { member in
+                CastMemberView(member: member)
             }
         }
     }

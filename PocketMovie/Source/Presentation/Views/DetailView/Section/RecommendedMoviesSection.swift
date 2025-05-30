@@ -11,22 +11,12 @@ struct RecommendedMoviesSection: View {
     let movies: [TMDBMovie]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("추천 영화")
-                .font(.title3)
-                .fontWeight(.bold)
-                .padding(.horizontal)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach(movies) { movie in
-                        NavigationLink(destination: DetailView(movie: movie)) {
-                            MoviePosterItemView(movie: movie)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }
+        HorizontalScrollSection(title: "추천 영화") {
+            ForEach(movies) { movie in
+                NavigationLink(destination: DetailView(movie: movie)) {
+                    MoviePosterItemView(movie: movie)
                 }
-                .padding(.horizontal)
+                .buttonStyle(PlainButtonStyle())
             }
         }
         .padding(.bottom, 24) // 마지막 섹션이므로 하단 패딩 추가

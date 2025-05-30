@@ -12,17 +12,9 @@ struct PhotosSection: View {
     let movieImages: [MovieImage]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("스틸샷")
-                .font(.headline)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach(movieImages) { image in
-                        PhotoItemView(movieImage: image)
-                    }
-                }
-                .padding(.horizontal)
+        HorizontalScrollSection(title: "스틸샷") {
+            ForEach(movieImages) { image in
+                PhotoItemView(movieImage: image)
             }
         }
     }

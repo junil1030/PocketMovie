@@ -12,17 +12,9 @@ struct VideosSection: View {
     let videos: [Video]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("예고편 및 영상")
-                .font(.headline)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach(videos) { video in
-                        VideoItemView(video: video)
-                    }
-                }
-                .padding(.horizontal)
+        HorizontalScrollSection(title: "예고편 및 영상") {
+            ForEach(videos) { video in
+                VideoItemView(video: video)
             }
         }
     }
