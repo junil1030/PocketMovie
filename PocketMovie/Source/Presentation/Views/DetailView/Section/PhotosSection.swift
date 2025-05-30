@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct PhotosSection: View {
-    let backdropPaths: [String]
+    let movieImages: [MovieImage]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -18,8 +18,8 @@ struct PhotosSection: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
-                    ForEach(backdropPaths, id: \.self) { backdropPath in
-                        PhotoItemView(backdropPath: backdropPath)
+                    ForEach(movieImages) { image in
+                        PhotoItemView(movieImage: image)
                     }
                 }
                 .padding(.horizontal)
@@ -29,14 +29,10 @@ struct PhotosSection: View {
 }
 
 struct PhotoItemView: View {
-    let backdropPath: String
-    
-    private var backdropURL: String {
-        "https://image.tmdb.org/t/p/w500\(backdropPath)"
-    }
+    let movieImage: MovieImage
     
     var body: some View {
-        KFImage(URL(string: backdropURL))
+        KFImage(URL(string: movieImage.fullImageURL))
             .resizable()
             .placeholder {
                 Rectangle()
@@ -45,7 +41,7 @@ struct PhotoItemView: View {
                         ProgressView()
                     )
             }
-            .aspectRatio(16/9, contentMode: .fill)
+            .aspectRatio(contentMode: .fill)
             .frame(width: 200, height: 112)
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .shadow(radius: 2)
@@ -53,5 +49,5 @@ struct PhotoItemView: View {
 }
 
 #Preview {
-    PhotosSection(backdropPaths: ["/mroWh717g0Ah2c0rrPGW6f3EWMM.jpg"])
+    PhotosSection(movieImages: [])
 }
