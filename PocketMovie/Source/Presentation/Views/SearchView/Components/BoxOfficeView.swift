@@ -9,42 +9,69 @@ import SwiftUI
 
 struct BoxOfficeView: View {
     let title: String
-    let items: [String]
+    let movies: [TMDBMovie]
     let isLoading: Bool
     let error: Error?
-    //let getPosterURL: (String) -> String?
-    let posterURLs: [String: String]
+    let isDailyBoxOffice: Bool // 일간/주간 구분용
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(title)
-                .font(.title3)
-                .fontWeight(.bold)
-            
             if isLoading {
-                ProgressView()
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding()
+                VStack {
+                    Text(title)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 16)
+                    
+                    ProgressView()
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding()
+                }
             } else if let error = error {
-                Text("데이터 로드 오류: \(error.localizedDescription)")
-                    .foregroundColor(.red)
-                    .padding()
-            } else if items.isEmpty {
-                Text("데이터가 없습니다.")
-                    .foregroundColor(.gray)
-                    .padding()
+                VStack {
+                    Text(title)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 16)
+                    
+                    Text("데이터 로드 오류: \(error.localizedDescription)")
+                        .foregroundColor(.red)
+                        .padding(.horizontal, 16)
+                }
+            } else if movies.isEmpty {
+                VStack {
+                    Text(title)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 16)
+                    
+                    Text("데이터가 없습니다.")
+                        .foregroundColor(.gray)
+                        .padding(.horizontal, 16)
+                }
             } else {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 12) {
-                        ForEach(Array(zip(items.indices, items)), id: \.0) { index, title in
-                            BoxOfficeItemView(
-                                rank: index + 1,
-                                title: title,
-                                posterURL: posterURLs[title]
-                            )
+                HorizontalScrollSection(title: title) {
+                    ForEach(Array(movies.enumerated()), id: \.element.id) { index, movie in
+                        ZStack(alignment: .topLeading) {
+                            MoviePosterItemView(movie: movie)
+                            
+                            // 순위 표시
+                            Text("\(index + 1)")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(8)
+                                .background(
+                                    Circle()
+                                        .fill(Color.blue)
+                                        .shadow(radius: 2)
+                                )
+                                .padding(4)
                         }
                     }
-                    .padding(.bottom, 4)
                 }
             }
         }
