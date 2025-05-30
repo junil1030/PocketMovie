@@ -13,10 +13,7 @@ struct RecommendedMoviesSection: View {
     var body: some View {
         HorizontalScrollSection(title: "추천 영화") {
             ForEach(movies) { movie in
-                NavigationLink(destination: DetailView(movie: movie)) {
-                    MoviePosterItemView(movie: movie)
-                }
-                .buttonStyle(PlainButtonStyle())
+                MoviePosterItemView(movie: movie)
             }
         }
         .padding(.bottom, 24) // 마지막 섹션이므로 하단 패딩 추가

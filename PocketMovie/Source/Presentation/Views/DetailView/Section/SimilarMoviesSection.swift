@@ -13,10 +13,7 @@ struct SimilarMoviesSection: View {
     var body: some View {
         HorizontalScrollSection(title: "비슷한 영화") {
             ForEach(movies) { movie in
-                NavigationLink(destination: DetailView(movie: movie)) {
-                    MoviePosterItemView(movie: movie)
-                }
-                .buttonStyle(PlainButtonStyle())
+                MoviePosterItemView(movie: movie)
             }
         }
     }
