@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PreviewReviewCardView: View {
-    let movie: KMDBMovie
+    let movie: TMDBMovie
     let rating: Int
     let review: String
     let cardWidth: CGFloat
@@ -23,7 +23,7 @@ struct PreviewReviewCardView: View {
             
             // 리뷰 텍스트
             VStack(spacing: 4) {
-                Text(movie.cleanTitle)
+                Text(movie.title)
                     .font(.system(size: 15))
                     .fontWeight(.bold)
                     .foregroundColor(.white)

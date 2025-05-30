@@ -10,7 +10,7 @@ import Combine
 
 @MainActor
 class CardCreationViewModel: ObservableObject {
-    let movie: KMDBMovie
+    let movie: TMDBMovie
     private let movieUseCase: MovieUseCase
     
     @Published var isLoading = false
@@ -18,7 +18,7 @@ class CardCreationViewModel: ObservableObject {
     @Published var showErrorAlert = false
     @Published var showSavedAlert = false
     
-    init(movie: KMDBMovie, movieUseCase: MovieUseCase) {
+    init(movie: TMDBMovie, movieUseCase: MovieUseCase) {
         self.movie = movie
         self.movieUseCase = movieUseCase
     }
@@ -28,9 +28,9 @@ class CardCreationViewModel: ObservableObject {
         
         do {
             let newMovie = Movie(
-                title: movie.cleanTitle,
-                releaseDate: movie.repRlsDate,
-                posterURL: movie.firstPosterURL,
+                title: movie.title,
+                releaseDate: movie.releaseDate,
+                posterURL: movie.fullPosterURL,
                 rating: rating,
                 review: review,
                 watchedDate: Date()

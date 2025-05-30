@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct PreviewPosterCardView: View {
-    let movie: KMDBMovie
+    let movie: TMDBMovie
     let rating: Int
     let cardWidth: CGFloat
     let cardHeight: CGFloat
@@ -17,7 +17,7 @@ struct PreviewPosterCardView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             // 포스터 이미지
-            if let posterURL = movie.firstPosterURL, let url = URL(string: posterURL) {
+            if let posterURL = movie.fullPosterURL, let url = URL(string: posterURL) {
                 KFImage(url)
                     .resizable()
                     .placeholder {
@@ -35,7 +35,7 @@ struct PreviewPosterCardView: View {
                     .fill(Color.gray.opacity(0.2))
                     .frame(width: cardWidth, height: cardHeight)
                     .overlay(
-                        Text(movie.cleanTitle)
+                        Text(movie.title)
                             .font(.caption2)
                             .multilineTextAlignment(.center)
                             .padding(4)
@@ -46,7 +46,7 @@ struct PreviewPosterCardView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Spacer()
                 
-                Text(movie.cleanTitle)
+                Text(movie.title)
                     .font(.system(size: 13).bold())
                     .foregroundColor(.white)
                     .lineLimit(1)
@@ -60,8 +60,8 @@ struct PreviewPosterCardView: View {
                     
                     Spacer()
                     
-                    if !movie.repRlsDate.isEmpty {
-                        Text(movie.repRlsDate)
+                    if !movie.releaseDate.isEmpty {
+                        Text(movie.releaseDate)
                             .font(.system(size: 13))
                             .foregroundColor(.white.opacity(0.8))
                     }

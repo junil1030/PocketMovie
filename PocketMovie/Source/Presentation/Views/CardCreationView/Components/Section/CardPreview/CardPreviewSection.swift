@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardPreviewSection: View {
-    let movie: KMDBMovie
+    let movie: TMDBMovie
     let rating: Int
     let review: String
     @Binding var isFlipped: Bool

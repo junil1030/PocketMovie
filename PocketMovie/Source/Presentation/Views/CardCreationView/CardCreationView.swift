@@ -19,7 +19,7 @@ struct CardCreationView: View {
     private let cardWidth: CGFloat = 200
     private let cardHeight: CGFloat = 300
     
-    init(movie: KMDBMovie) {
+    init(movie: TMDBMovie) {
         _viewModel = StateObject(wrappedValue: DIContainer.shared.container.resolve(CardCreationViewModel.self, argument: movie)!)
     }
     

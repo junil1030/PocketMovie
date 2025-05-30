@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct PreviewCard: View {
-    let movie: KMDBMovie
+    let movie: TMDBMovie
     let rating: Int
     let review: String
     
