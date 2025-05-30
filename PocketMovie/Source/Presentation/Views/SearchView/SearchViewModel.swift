@@ -68,8 +68,6 @@ class SearchViewModel: ObservableObject {
         let dailyDate = dateFormatter.string(from: yesterday)
         let weekDate = dateFormatter.string(from: weekAgo)
         
-        print("박스오피스 데이터 로드 시작 - 일간: \(dailyDate), 주간: \(weekDate)")
-        
         // CombineLatest로 두 API를 동시에 호출
         Publishers.CombineLatest(
             movieAPIService.fetchDailyBoxOffice(date: dailyDate),
@@ -81,7 +79,6 @@ class SearchViewModel: ObservableObject {
             
             if case .failure(let error) = completion {
                 self?.boxOfficeError = error
-                print("박스오피스 데이터 로드 실패: \(error)")
             }
         } receiveValue: { [weak self] (dailyResponse, weeklyResponse) in
             self?.dailyBoxOfficeList = dailyResponse.boxOfficeResult.dailyBoxOfficeList
@@ -158,9 +155,6 @@ class SearchViewModel: ObservableObject {
         
         self.dailyBoxOfficeMovies = dailyMovies
         self.weeklyBoxOfficeMovies = weeklyMovies
-        
-        print("일간 박스오피스 영화 로드 완료: \(dailyMovies.count)개")
-        print("주간 박스오피스 영화 로드 완료: \(weeklyMovies.count)개")
     }
     
     // TMDB 검색 결과에서 가장 적합한 영화 찾기
