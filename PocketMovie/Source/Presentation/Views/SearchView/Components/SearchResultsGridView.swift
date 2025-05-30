@@ -41,7 +41,7 @@ struct SearchResultsGridView: View {
                 
                 LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(searchResults) { movie in
-                        MoviePosterView(movie: movie)
+                        MoviePosterItemView(movie: movie)
                     }
                 }
             }
