@@ -16,7 +16,7 @@ protocol MovieAPIService {
 //    func searchMovieWithReleaseDate(keyword: String, releaseDts: String) -> AnyPublisher<KMDBMovieResponse, Error>
     
     func searchMovies(keyword: String) -> AnyPublisher<TMDBMovieResponse, Error>
-    func getMovieDetail(movieId: Int) -> AnyPublisher<TMDBMovie, Error>
+    func getMovieDetail(movieId: Int) -> AnyPublisher<TMDBMovieDetail, Error>
 }
 
 final class DefaultMovieAPIService: MovieAPIService {
@@ -51,7 +51,7 @@ final class DefaultMovieAPIService: MovieAPIService {
         return networkClient.request(endpoint)
     }
     
-    func getMovieDetail(movieId: Int) -> AnyPublisher<TMDBMovie, Error> {
+    func getMovieDetail(movieId: Int) -> AnyPublisher<TMDBMovieDetail, Error> {
         let endpoint = TMDBAPIEndpoint.movieDetail(movieId: movieId)
         return networkClient.request(endpoint)
     }
