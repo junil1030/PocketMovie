@@ -71,6 +71,25 @@ struct DetailView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
         }
+        .overlay(alignment: .bottomTrailing) {
+            FloatingButton {
+                FloatingAction(symbol: "square.and.pencil") {
+                    print("Save")
+                }
+            } label: { isExpanded in
+                Image(systemName: "plus")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.white)
+                    .rotationEffect(.init(degrees: isExpanded ? 45 : 0))
+                    .scaleEffect(1.02)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.black, in: .circle)
+                    // 펴질 때 스케일 바꾸기
+                    .scaleEffect(isExpanded ? 0.9 : 1)
+            }
+            .padding()
+        }
         .onAppear() {
             viewModel.loadMovieDetail()
         }
