@@ -12,12 +12,12 @@ struct EmptyStateView: View {
         VStack {
             Image(systemName: "film")
                 .font(.system(size: 70))
-                .foregroundStyle(.gray)
+                .foregroundStyle(Color("AppTextColor"))
                 .padding()
             
             Text("영화를 추가해보세요!")
                 .font(.title2)
-                .foregroundStyle(.gray)
+                .foregroundStyle(Color("AppTextColor"))
         }
     }
 }

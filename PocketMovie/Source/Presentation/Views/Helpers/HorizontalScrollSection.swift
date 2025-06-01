@@ -32,6 +32,7 @@ struct HorizontalScrollSection<Content: View>: View {
         VStack(alignment: .leading, spacing: 12) {
             Text(title)
                 .font(.headline)
+                .foregroundStyle(Color("AppTextColor"))
                 .padding(.horizontal, horizontalPadding)
             
             ScrollView(.horizontal, showsIndicators: showsIndicators) {

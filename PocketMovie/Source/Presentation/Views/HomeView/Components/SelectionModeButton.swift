@@ -17,6 +17,7 @@ struct SelectionModeButton: View {
             onToggle()
         } label: {
             Image(systemName: isSelectionMode ? "checkmark.circle.fill" : "ellipsis")
+                .foregroundStyle(Color("AppTextColor"))
         }
     }
 }

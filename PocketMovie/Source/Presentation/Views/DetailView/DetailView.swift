@@ -71,6 +71,7 @@ struct DetailView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
         }
+        .background(Color("AppBackgroundColor"))
         .overlay(alignment: .bottomTrailing) {
             FloatingButton {
                 FloatingAction(symbol: "square.and.pencil") {

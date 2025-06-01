@@ -22,6 +22,7 @@ struct SearchHeaderView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("영화 검색")
                         .font(.title.bold())
+                        .foregroundColor(Color("AppTextColor"))
                 }
                 Spacer(minLength: 0)
             }
@@ -54,7 +55,7 @@ struct SearchHeaderView: View {
             .padding(.horizontal, 15)
             .background {
                 RoundedRectangle(cornerRadius: currentFocus ? 0 : 30)
-                    .fill(.background
+                    .fill(Color("AppBackgroundColor")
                         .shadow(.drop(color: .black.opacity(0.08), radius: 5, x: 5, y: 5))
                         .shadow(.drop(color: .black.opacity(0.05), radius: 5, x: -5, y: -5))
                     )

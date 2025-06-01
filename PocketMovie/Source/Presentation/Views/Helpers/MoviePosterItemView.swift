@@ -47,7 +47,7 @@ struct MoviePosterItemView: View {
                     Text(movie.title)
                         .font(.caption)
                         .fontWeight(.medium)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(Color("AppTextColor"))
                         .lineLimit(2)
                         .frame(width: 120, alignment: .leading)
                     

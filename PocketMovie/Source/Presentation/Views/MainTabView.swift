@@ -24,6 +24,7 @@ struct MainTabView: View {
                     Label("설정", systemImage: "gear")
                 }
         }
+        .background(Color("AppBackgroundColor"))
     }
 }
 

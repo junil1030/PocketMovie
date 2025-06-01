@@ -41,12 +41,14 @@ struct PocketMovieApp: App {
             // 일반 실행
             if isReady {
                 MainTabView()
+                    .background(Color("AppBackgroundColor"))
             } else {
                 ProgressView()
                     .task {
                         await DIContainer.shared.registerMain()
                         isReady = true
                     }
+                    .background(Color("AppBackgroundColor"))
             }
         }
     }

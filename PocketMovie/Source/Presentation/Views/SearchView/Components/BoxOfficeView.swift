@@ -33,6 +33,7 @@ struct BoxOfficeView: View {
                     Text(title)
                         .font(.title3)
                         .fontWeight(.bold)
+                        .foregroundColor(Color("AppTextColor"))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 16)
                     
@@ -45,11 +46,12 @@ struct BoxOfficeView: View {
                     Text(title)
                         .font(.title3)
                         .fontWeight(.bold)
+                        .foregroundColor(Color("AppTextColor"))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 16)
                     
                     Text("데이터가 없습니다.")
-                        .foregroundColor(.gray)
+                        .foregroundColor(Color("AppTextColor").opacity(0.6))
                         .padding(.horizontal, 16)
                 }
             } else {
@@ -62,11 +64,11 @@ struct BoxOfficeView: View {
                             Text("\(index + 1)")
                                 .font(.title)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color("AppTextColor"))
                                 .padding(8)
                                 .background(
                                     Circle()
-                                        .fill(Color.blue)
+                                        .fill(Color("AppBackgroundColor"))
                                         .shadow(radius: 2)
                                 )
                                 .padding(4)

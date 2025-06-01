@@ -31,12 +31,13 @@ struct SearchResultsGridView: View {
                     .padding()
             } else if searchResults.isEmpty {
                 Text("검색 결과가 없습니다.")
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("AppTextColor").opacity(0.6))
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding()
             } else {
                 Text("검색 결과: \(searchResults.count)개")
                     .font(.headline)
+                    .foregroundColor(Color("AppTextColor"))
                     .padding(.bottom, 8)
                 
                 LazyVGrid(columns: columns, spacing: 16) {

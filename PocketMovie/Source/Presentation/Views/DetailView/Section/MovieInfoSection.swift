@@ -40,7 +40,7 @@ struct MovieInfoSection: View {
                     .overlay(
                         Text("배경 이미지 없음")
                             .font(.caption)
-                            .foregroundStyle(.gray)
+                            .foregroundStyle(Color("AppTextColor"))
                     )
             }
             
@@ -68,7 +68,7 @@ struct MovieInfoSection: View {
                         .overlay(
                             Text("포스터\n없음")
                                 .font(.caption2)
-                                .foregroundColor(.white)
+                                .foregroundStyle(Color("AppTextColor"))
                                 .multilineTextAlignment(.center)
                         )
 
@@ -78,14 +78,14 @@ struct MovieInfoSection: View {
                     Text(movie.title)
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundColor(.white)
+                        .foregroundStyle(Color("AppTextColor"))
                         .lineLimit(2)
                         .shadow(radius: 2)
                     
                     if !movie.releaseDate.isEmpty {
                         Text("개봉일: \(movie.releaseDate)")
                             .font(.subheadline)
-                            .foregroundColor(.white.opacity(0.9))
+                            .foregroundStyle(Color("AppTextColor").opacity(0.9))
                             .shadow(radius: 2)
                     }
                     
@@ -97,7 +97,7 @@ struct MovieInfoSection: View {
                                 .font(.caption)
                             Text(String(format: "%.1f", movie.voteAverage))
                                 .font(.caption)
-                                .foregroundColor(.white.opacity(0.9))
+                                .foregroundStyle(Color("AppTextColor").opacity(0.9))
                         }
                         .shadow(radius: 2)
                     }

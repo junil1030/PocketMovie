@@ -18,6 +18,9 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                Color("AppBackgroundColor")
+                    .ignoresSafeArea()
+                
                 if viewModel.movies.isEmpty {
                     EmptyStateView()
                 } else {

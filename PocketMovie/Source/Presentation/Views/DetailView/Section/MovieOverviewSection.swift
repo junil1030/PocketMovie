@@ -15,15 +15,17 @@ struct MovieOverviewSection: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("줄거리")
                 .font(.headline)
+                .foregroundStyle(Color("AppTextColor"))
             
             VStack(alignment: .leading, spacing: 8) {
                 if movie.overview.isEmpty {
                     Text("줄거리 정보가 없습니다.")
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(Color("AppTextColor"))
                         .font(.subheadline)
                 } else {
                     Text(movie.overview)
                         .font(.subheadline)
+                        .foregroundStyle(Color("AppTextColor"))
                         .lineLimit(isOverviewExpanded ? nil : 2)
                         .animation(.easeInOut(duration: 0.3), value: isOverviewExpanded)
                     
@@ -34,6 +36,7 @@ struct MovieOverviewSection: View {
                             }
                         } label: {
                             Image(systemName: isOverviewExpanded ? "chevron.compact.up" : "chevron.compact.down")
+                                .foregroundStyle(Color("AppTextColor"))
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
                     }
