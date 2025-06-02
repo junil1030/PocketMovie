@@ -65,15 +65,8 @@ struct VideoItemView: View {
                 .lineLimit(2)
                 .frame(width: 160, alignment: .leading)
         }
-        .alert("유튜브 영상", isPresented: $showingVideoAlert) {
-            Button("YouTube에서 보기") {
-                if let url = URL(string: video.youtubeURL ?? "") {
-                    UIApplication.shared.open(url)
-                }
-            }
-            Button("취소", role: .cancel) {}
-        } message: {
-            Text("이 영상을 YouTube에서 보시겠습니까?\n\(video.name)")
+        .sheet(isPresented: $showingVideoAlert) {
+            YouTubePlayerSheet(video: video)
         }
     }
 }
