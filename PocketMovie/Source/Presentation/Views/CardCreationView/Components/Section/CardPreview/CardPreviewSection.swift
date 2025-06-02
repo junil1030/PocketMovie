@@ -12,8 +12,6 @@ struct CardPreviewSection: View {
     let rating: Int
     let review: String
     @Binding var isFlipped: Bool
-    let cardWidth: CGFloat
-    let cardHeight: CGFloat
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -25,9 +23,7 @@ struct CardPreviewSection: View {
                 movie: movie,
                 rating: rating,
                 review: review,
-                isFlipped: $isFlipped,
-                cardWidth: cardWidth,
-                cardHeight: cardHeight
+                isFlipped: $isFlipped
             )
             .frame(maxWidth: .infinity, alignment: .center)
             .padding(.vertical, 8)

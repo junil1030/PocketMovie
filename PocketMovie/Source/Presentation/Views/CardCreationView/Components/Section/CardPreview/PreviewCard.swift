@@ -12,39 +12,17 @@ struct PreviewCard: View {
     let movie: TMDBMovie
     let rating: Int
     let review: String
-    
     @Binding var isFlipped: Bool
     
-    let cardWidth: CGFloat
-    let cardHeight: CGFloat
-    
     var body: some View {
-        ZStack {
-            if isFlipped {
-                PreviewReviewCardView(
-                    movie: movie,
-                    rating: rating,
-                    review: review,
-                    cardWidth: cardWidth,
-                    cardHeight: cardHeight
-                )
-            } else {
-                PreviewPosterCardView(
-                    movie: movie,
-                    rating: rating,
-                    cardWidth: cardWidth,
-                    cardHeight: cardHeight
-                )
-            }
-        }
-        .rotation3DEffect(
-            .degrees(isFlipped ? 180 : 0),
-            axis: (x: 0, y: 1, z: 0)
+        CommonMovieCard(
+            cardData: CardDisplayData(from: movie, rating: Double(rating), review: review),
+            isFlipped: isFlipped,
+            cardSize: .medium,
+            showSelection: false,
+            isSelected: false,
+            onTap: { isFlipped.toggle() }
         )
-        .animation(.spring(duration: 0.5), value: isFlipped)
-        .onTapGesture {
-            isFlipped.toggle()
-        }
     }
 }
 

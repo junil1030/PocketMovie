@@ -13,12 +13,6 @@ struct CardStackView: View {
     @Binding var selectedMovies: Set<String>
     @Binding var flippedCards: Set<String>
     
-    // 카드 크기 설정을 위한 상수
-    private let cardWidth: CGFloat = 250
-    private let cardHeight: CGFloat = 400
-    private let cardCornerRadius: CGFloat = 30
-    private let cardBackgroundCornerRadius: CGFloat = 35
-    
     var body: some View {
         GeometryReader { geometry in
             let width = geometry.size.width
@@ -29,10 +23,6 @@ struct CardStackView: View {
                         movie: movie,
                         isSelected: selectedMovies.contains(String(movie.id.hashValue)),
                         isFlipped: flippedCards.contains(String(movie.id.hashValue)),
-                        cardWidth: cardWidth,
-                        cardHeight: cardHeight,
-                        cardCornerRadius: cardCornerRadius,
-                        cardBackgroundCornerRadius: cardBackgroundCornerRadius,
                         onTap: {
                             if isSelecteionMode {
                                 toggleMovieSelection(id: String(movie.id.hashValue))

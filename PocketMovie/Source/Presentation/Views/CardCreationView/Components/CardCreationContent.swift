@@ -21,9 +21,6 @@ struct CardCreationContent: View {
     @Binding var showErrorAlert: Bool
     let errorMessage: String
     
-    let cardWidth: CGFloat
-    let cardHeight: CGFloat
-    
     let dismiss: DismissAction
     let saveCard: () -> Void
     
@@ -39,8 +36,7 @@ struct CardCreationContent: View {
                     MovieInfoSection(movie: movie)
                     
                     // 영화 평점 섹션
-                    //RatingSelectionSection(rating: $rating)
-                    MovieOverviewSection(movie: movie)
+                    RatingSelectionSection(rating: $rating)
                     
                     // 리뷰 섹션
                     CardReviewSection(
@@ -53,9 +49,7 @@ struct CardCreationContent: View {
                         movie: movie,
                         rating: rating,
                         review: review,
-                        isFlipped: $isFlipped,
-                        cardWidth: cardWidth,
-                        cardHeight: cardHeight
+                        isFlipped: $isFlipped
                     )
                     
                     Spacer(minLength: 100)

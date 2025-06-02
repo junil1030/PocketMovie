@@ -16,9 +16,6 @@ struct CardCreationView: View {
     @State private var isFlipped = false
     @FocusState private var isReviewFocused: Bool
     
-    private let cardWidth: CGFloat = 200
-    private let cardHeight: CGFloat = 300
-    
     init(movie: TMDBMovie) {
         _viewModel = StateObject(wrappedValue: DIContainer.shared.container.resolve(CardCreationViewModel.self, argument: movie)!)
     }
@@ -34,8 +31,6 @@ struct CardCreationView: View {
             showSavedAlert: $viewModel.showSavedAlert,
             showErrorAlert: $viewModel.showErrorAlert,
             errorMessage: viewModel.errorMessage,
-            cardWidth: cardWidth,
-            cardHeight: cardHeight,
             dismiss: dismiss,
             saveCard: saveCard
         )
