@@ -24,22 +24,6 @@ enum APIConfig {
         #endif
     }
     
-    static var kmdbAPIKey: String {
-        #if DEBUG
-        if ProcessInfo.processInfo.environment["CI"] == "TRUE" {
-            return ProcessInfo.processInfo.environment["KMDB_API_KEY"] ?? ""
-        } else {
-            return Bundle.main.infoDictionary?["KMDB_API_KEY"] as? String ?? ""
-        }
-        #else
-        if ProcessInfo.processInfo.environment["CI"] == "TRUE" {
-            return ProcessInfo.processInfo.environment["KMDB_API_KEY"] ?? ""
-        } else {
-            return Bundle.main.infoDictionary?["KMDB_API_KEY"] as? String ?? ""
-        }
-        #endif
-    }
-    
     static var tmdbAPIKey: String {
         #if DEBUG
         if ProcessInfo.processInfo.environment["CI"] == "TRUE" {
