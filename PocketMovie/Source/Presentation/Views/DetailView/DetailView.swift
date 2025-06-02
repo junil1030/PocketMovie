@@ -11,6 +11,7 @@ struct DetailView: View {
     let movie: TMDBMovie
     @StateObject private var viewModel: DetailViewModel
     @Environment(\.dismiss) private var dismiss
+    @State private var showingCardCreation = false
     
     init(movie: TMDBMovie) {
         self.movie = movie
@@ -75,7 +76,7 @@ struct DetailView: View {
         .overlay(alignment: .bottomTrailing) {
             FloatingButton {
                 FloatingAction(symbol: "square.and.pencil") {
-                    print("Save")
+                    showingCardCreation = true
                 }
             } label: { isExpanded in
                 Image(systemName: "plus")
@@ -90,6 +91,11 @@ struct DetailView: View {
                     .scaleEffect(isExpanded ? 0.9 : 1)
             }
             .padding()
+        }
+        .sheet(isPresented: $showingCardCreation) {
+            NavigationStack {
+                CardCreationView(movie: movie)
+            }
         }
         .onAppear() {
             viewModel.loadMovieDetail()
