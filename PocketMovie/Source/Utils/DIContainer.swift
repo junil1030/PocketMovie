@@ -90,7 +90,7 @@ final class DIContainer {
         container.register(CardCreationViewModel.self) { (resolver, movie: TMDBMovie) in
             let useCase = resolver.resolve(MovieUseCase.self)!
             return CardCreationViewModel(movie: movie, movieUseCase: useCase)
-        }.inObjectScope(.container)
+        }
         
         container.register(DetailViewModel.self) { (resolver, movieId: Int) in
             return DetailViewModel(movieId: movieId)
