@@ -15,23 +15,6 @@ final class MockMovieUseCase: MovieUseCase {
     private var shouldThrowError: Bool = false
     private var errorToThrow: Error = MockError.unknown
     
-    enum MockError: Error, LocalizedError {
-        case saveError
-        case deleteError
-        case unknown
-        
-        var errorDescription: String? {
-            switch self {
-            case .saveError:
-                return "저장 실패"
-            case .deleteError:
-                return "삭제 실패"
-            case .unknown:
-                return "알 수 없는 오류"
-            }
-        }
-    }
-    
     func setMovies(_ movies: [Movie]) {
         self.movies = movies
     }
