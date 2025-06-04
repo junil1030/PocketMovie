@@ -4,13 +4,13 @@
 
 ## 🔨 개발기간
 📅 기간: 2025.04.30 ~ 2025.05.14 (2주)
-> 최신 버전 : 1.0.0 - 2025년 5월 15일 (업데이트 진행 중)
+> 최신 버전 : 1.1.0 - 2025년 6월 03일 (업데이트 진행 중)
 ### 앱스토어
 <a href="https://apps.apple.com/kr/app/id6745817964" target="_blank">
   <img width="130" alt="appstore" src="https://user-images.githubusercontent.com/55099365/196023806-5eb7be0f-c7cf-4661-bb39-35a15146c33a.png">
 </a>
 
-![AppScreenshot](https://github.com/user-attachments/assets/68b7544a-cadb-477c-8d34-edf855a553ed)
+![AppScreenshot](https://github.com/user-attachments/assets/c8df655d-3132-44be-861e-1eeee4a91e4e)
 
 
 <br/>
