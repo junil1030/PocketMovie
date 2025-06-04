@@ -12,6 +12,11 @@
 
 ![AppScreenshot](https://github.com/user-attachments/assets/c8df655d-3132-44be-861e-1eeee4a91e4e)
 
+<br/>
+
+| 메인 화면 | 메인 화면2 | 박스오피스 화면 | 영화 검색 화면 | 카드 생성 화면 | 제작 버튼 화면 |
+|--|--|--|--|--|--|
+|![Image](https://github.com/user-attachments/assets/6813c88b-05a3-4797-8216-9b6a227da9a0)|![Image](https://github.com/user-attachments/assets/4dd9f3bc-9745-4e51-be36-139c0575f930)|![Image](https://github.com/user-attachments/assets/60b63967-eb1b-4071-a2b3-77de194cff6c)|![Image](https://github.com/user-attachments/assets/76ed3b6e-9c15-40c0-b368-bbadb5757904)|![Image](https://github.com/user-attachments/assets/5c8f5b6c-5c15-43cf-82f8-3f74192c383a)|![Image](https://github.com/user-attachments/assets/9e619bbf-ac71-49d4-88e1-2aa08825ee41)|
 
 <br/>
 
