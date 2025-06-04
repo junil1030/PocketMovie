@@ -79,7 +79,7 @@ struct HomeViewModelTests {
         let (viewModel, mockUseCase) = createViewModel(with: mockMovies)
         let movieToDelete = mockMovies[0]
         
-        mockUseCase.setShouldThrowError(true, error: MockMovieUseCase.MockError.deleteError)
+        mockUseCase.setShouldThrowError(true, error: MockError.deleteError)
         
         viewModel.deleteMovie(movieToDelete)
         
@@ -108,7 +108,7 @@ struct HomeViewModelTests {
         let (viewModel, mockUseCase) = createViewModel(with: mockMovies)
         let moviesToDelete = Array(mockMovies[0...1])
         
-        mockUseCase.setShouldThrowError(true, error: MockMovieUseCase.MockError.deleteError)
+        mockUseCase.setShouldThrowError(true, error: MockError.deleteError)
         
         viewModel.deleteMovies(moviesToDelete)
     
