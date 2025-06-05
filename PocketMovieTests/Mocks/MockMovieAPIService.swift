@@ -94,21 +94,3 @@ class MockMovieAPIService: MovieAPIService {
         .eraseToAnyPublisher()
     }
 }
-
-// MARK: - DailyBoxOffice Codable 수정
-extension DailyBoxOffice {
-    init(rank: String, movieNm: String, openDt: String) {
-        self.rank = rank
-        self.movieNm = movieNm
-        self.openDt = openDt
-    }
-}
-
-// MARK: - WeeklyBoxOffice Codable 수정
-extension WeeklyBoxOffice {
-    init(rank: String, movieNm: String, openDt: String) {
-        self.rank = rank
-        self.movieNm = movieNm
-        self.openDt = openDt
-    }
-}
