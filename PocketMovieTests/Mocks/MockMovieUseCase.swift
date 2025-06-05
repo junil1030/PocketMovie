@@ -33,6 +33,8 @@ final class MockMovieUseCase: MovieUseCase {
         if shouldThrowError {
             throw errorToThrow
         }
+        
+        movie.rating = normalizeRating(movie.rating)
         movies.append(movie)
     }
     
@@ -62,5 +64,12 @@ final class MockMovieUseCase: MovieUseCase {
     
     func getModelContext() -> ModelContext {
         fatalError("ModelContext 제공 x")
+    }
+    
+    private func normalizeRating(_ rating: Double) -> Double {
+        if rating.isNaN || rating.isInfinite {
+            return 0.0
+        }
+        return max(0.0, min(5.0, rating))
     }
 }

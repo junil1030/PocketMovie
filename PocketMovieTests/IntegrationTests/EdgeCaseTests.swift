@@ -45,19 +45,26 @@ struct EdgeCaseTests {
     func testExtremeRatingValues() async throws {
         // Given
         let mockUseCase = MockMovieUseCase()
-        let ratings = [0.0, -1.0, 5.1, 10.0, Double.infinity, Double.nan]
+        let testCases: [(input: Double, expected: Double)] = [
+            (0.0, 0.0),
+            (-1.0, 0.0),
+            (5.1, 5.0),
+            (10.0, 5.0),
+            (Double.infinity, 0.0),
+            (Double.nan, 0.0)
+        ]
         
         // When & Then
-        for rating in ratings {
+        for (input, expected) in testCases {
             let movie = MovieTestFactory.createMockMovie(
-                title: "평점 테스트 \(rating)",
-                rating: rating
+                title: "평점 테스트 \(input)",
+                rating: input
             )
             
             try mockUseCase.saveMovie(movie)
             
             let saved = mockUseCase.getAllMovies().last
-            #expect(saved?.rating == rating)
+            #expect(saved?.rating == expected)
         }
     }
     

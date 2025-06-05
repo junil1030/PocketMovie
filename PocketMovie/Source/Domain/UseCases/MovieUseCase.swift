@@ -31,6 +31,7 @@ final class DefaultMovieUseCase: MovieUseCase {
     }
     
     func saveMovie(_ movie: Movie) throws {
+        movie.rating = normalizeRating(movie.rating)
         try repository.saveMovie(movie)
     }
     
@@ -48,5 +49,12 @@ final class DefaultMovieUseCase: MovieUseCase {
     
     func getModelContext() -> ModelContext {
         return repository.getModelContext()
+    }
+    
+    private func normalizeRating(_ rating: Double) -> Double {
+        if rating.isNaN || rating.isInfinite {
+            return 0.0
+        }
+        return max(0.0, min(5.0, rating))
     }
 }
