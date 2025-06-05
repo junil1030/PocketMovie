@@ -53,6 +53,9 @@ struct HomeIntegrationTests {
         let useCase = DefaultMovieUseCase(repository: repository)
         let viewModel = HomeViewModel(movieUseCase: useCase)
         
+        try repository.deleteAllMovies()
+        viewModel.fetchMovies()
+        
         let initialCount = viewModel.movies.count
         let newMovie = MovieTestFactory.createMockMovie(title: "일관성 테스트 영화")
         
