@@ -2,7 +2,7 @@
 //  EdgeCaseTests.swift
 //  PocketMovieTests
 //
-//  Created by 서준일 on 6/4/25.
+//  Created by 서준일 on 5/18/25.
 //
 
 import Testing
@@ -100,7 +100,7 @@ struct EdgeCaseTests {
         await withTaskGroup(of: Void.self) { group in
             for movie in movies {
                 group.addTask {
-                    try? useCase.deleteMovie(movie)
+                    try? await useCase.deleteMovie(movie)
                 }
             }
         }
