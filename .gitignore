@@ -142,6 +142,7 @@ xcuserdata
 !*.xcworkspace/contents.xcworkspacedata
 !*.xcworkspace/xcshareddata/
 
-**/xcuserdata/
+# Xcode 사용자 설정 파일 무시
+*.xcuserstate
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode,swift,swiftpackagemanager,macos
