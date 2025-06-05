@@ -28,6 +28,12 @@ struct WeeklyBoxOffice: Codable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case rank, movieNm, openDt
     }
+
+    init(rank: String, movieNm: String, openDt: String) {
+        self.rank = rank
+        self.movieNm = movieNm
+        self.openDt = openDt
+    }
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
