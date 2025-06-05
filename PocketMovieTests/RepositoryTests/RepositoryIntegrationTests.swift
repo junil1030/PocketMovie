@@ -17,7 +17,7 @@ struct RepositoryIntegrationTests {
     @Test("영화 저장 및 조회가 정상적으로 동작하는지")
     func testSaveAndFetchMovie() async throws {
         // Given
-        let repository = try createInMemoryRepository()
+        let repository = try createCleanRepository()
         let testMovie = MovieTestFactory.createMockMovie(
             title: "저장 테스트 영화",
             rating: 4.5,
@@ -38,7 +38,7 @@ struct RepositoryIntegrationTests {
     @Test("여러 영화 저장 후 날짜순 정렬 확인")
     func testMultipleMoviesSortedByDate() async throws {
         // Given
-        let repository = try createInMemoryRepository()
+        let repository = try createCleanRepository()
         
         let movie1 = MovieTestFactory.createMockMovie(
             title: "영화1",
@@ -70,7 +70,7 @@ struct RepositoryIntegrationTests {
     @Test("영화 삭제가 정상적으로 동작하는지")
     func testDeleteMovie() async throws {
         // Given
-        let repository = try createInMemoryRepository()
+        let repository = try createCleanRepository()
         let testMovie = MovieTestFactory.createMockMovie(title: "삭제 테스트 영화")
         
         try repository.saveMovie(testMovie)
@@ -86,7 +86,7 @@ struct RepositoryIntegrationTests {
     @Test("여러 영화 일괄 삭제")
     func testDeleteMultipleMovies() async throws {
         // Given
-        let repository = try createInMemoryRepository()
+        let repository = try createCleanRepository()
         let movies = [
             MovieTestFactory.createMockMovie(title: "영화1"),
             MovieTestFactory.createMockMovie(title: "영화2"),
@@ -110,7 +110,7 @@ struct RepositoryIntegrationTests {
     @Test("모든 영화 삭제")
     func testDeleteAllMovies() async throws {
         // Given
-        let repository = try createInMemoryRepository()
+        let repository = try createCleanRepository()
         
         for i in 1...5 {
             let movie = MovieTestFactory.createMockMovie(title: "영화\(i)")
@@ -128,7 +128,7 @@ struct RepositoryIntegrationTests {
     @Test("영화 업데이트")
     func testUpdateMovie() async throws {
         // Given
-        let repository = try createInMemoryRepository()
+        let repository = try createCleanRepository()
         let testMovie = MovieTestFactory.createMockMovie(
             title: "원본 제목",
             rating: 3.0,
@@ -150,6 +150,12 @@ struct RepositoryIntegrationTests {
     }
     
     // MARK: - 헬퍼 메서드
+    private func createCleanRepository() throws -> SwiftDataMovieRepository {
+        let repository = try SwiftDataMovieRepository()
+        try repository.deleteAllMovies()
+        return repository
+    }
+    
     private func createInMemoryRepository() throws -> SwiftDataMovieRepository {
         // 테스트용 인메모리 레포지토리 생성
         // 실제 구현에서는 ModelConfiguration을 인메모리로 설정
