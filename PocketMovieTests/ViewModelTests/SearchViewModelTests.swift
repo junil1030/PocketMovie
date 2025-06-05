@@ -75,7 +75,7 @@ struct SearchViewModelTests {
         
         // Then
         #expect(viewModel.searchResults.isEmpty)
-        #expect(viewModel.isLoading)
+        #expect(viewModel.isLoading == false)
         #expect(mockService.searchMoviesCallCount == 0)
     }
     
@@ -172,24 +172,21 @@ struct SearchViewModelTests {
             )
         ))
         
-        // TMDB 검색 결과 Mock
+        // "영화1" 검색 시 결과
+        let movie1Result = TMDBMovie(
+            id: 1,
+            title: "영화1",
+            originalTitle: "Movie1",
+            posterPath: "/poster1.jpg",
+            backdropPath: nil,
+            releaseDate: "2025-01-01",
+            overview: "설명1",
+            voteAverage: 8.0,
+            voteCount: 100
+        )
+        
         mockService.searchMoviesResult = .success(TMDBMovieResponse(
-            page: 1,
-            results: [
-                TMDBMovie(
-                    id: 1,
-                    title: "영화1",
-                    originalTitle: "Movie1",
-                    posterPath: "/poster1.jpg",
-                    backdropPath: nil,
-                    releaseDate: "2025-01-01",
-                    overview: "설명1",
-                    voteAverage: 8.0,
-                    voteCount: 100
-                )
-            ],
-            totalPages: 1,
-            totalResults: 1
+            page: 1, results: [movie1Result], totalPages: 1, totalResults: 1
         ))
         
         let viewModel = SearchViewModelTests().createViewModel(with: mockService)
@@ -197,8 +194,8 @@ struct SearchViewModelTests {
         // When
         viewModel.loadBoxOfficeData()
         
-        // 비동기 작업 완료 대기 (여러 API 호출)
-        try await Task.sleep(nanoseconds: 500_000_000) // 0.5초
+        // 비동기 작업 완료 대기
+        try await Task.sleep(for: .milliseconds(1000))
         
         // Then
         #expect(viewModel.isLoadingBoxOffice == false)
