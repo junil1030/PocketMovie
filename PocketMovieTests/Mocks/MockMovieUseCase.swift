@@ -13,13 +13,13 @@ import SwiftData
 final class MockMovieUseCase: MovieUseCase {
     private var movies: [Movie] = []
     private var shouldThrowError: Bool = false
-    private var errorToThrow: Error = MockError.unknown
+    private var errorToThrow: Error = MockError.unknownError
     
     func setMovies(_ movies: [Movie]) {
         self.movies = movies
     }
     
-    func setShouldThrowError(_ shouldThrow: Bool, error: Error = MockError.unknown) {
+    func setShouldThrowError(_ shouldThrow: Bool, error: Error = MockError.unknownError) {
         self.shouldThrowError = shouldThrow
         self.errorToThrow = error
     }
@@ -44,7 +44,7 @@ final class MockMovieUseCase: MovieUseCase {
     
     func deleteMovie(_ movie: Movie) throws {
         if shouldThrowError {
-            throw MockError.deleteError
+            throw errorToThrow
         }
         if let index = movies.firstIndex(where: { $0.id == movie.id }) {
             movies.remove(at: index)
@@ -53,7 +53,7 @@ final class MockMovieUseCase: MovieUseCase {
     
     func deleteMovies(_ movies: [Movie]) throws {
         if shouldThrowError {
-            throw MockError.deleteError
+            throw errorToThrow
         }
         for movie in movies {
             try deleteMovie(movie)
