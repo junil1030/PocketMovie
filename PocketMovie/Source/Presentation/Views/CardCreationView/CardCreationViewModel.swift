@@ -23,7 +23,7 @@ class CardCreationViewModel: ObservableObject {
         self.movieUseCase = movieUseCase
     }
     
-    func saveCard(rating: Double, review: String) {
+    func saveCard(rating: Double, review: String, genres: [String]) {
         isLoading = true
         
         do {
@@ -33,7 +33,8 @@ class CardCreationViewModel: ObservableObject {
                 posterURL: movie.fullPosterURL,
                 rating: rating,
                 review: review,
-                watchedDate: Date()
+                watchedDate: Date(),
+                genres: genres
             )
             
             try movieUseCase.saveMovie(newMovie)

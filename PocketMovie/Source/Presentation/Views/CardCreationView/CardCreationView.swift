@@ -16,8 +16,11 @@ struct CardCreationView: View {
     @State private var isFlipped = false
     @FocusState private var isReviewFocused: Bool
     
-    init(movie: TMDBMovie) {
+    private let genres: [String]
+    
+    init(movie: TMDBMovie, genres: [String] = []) {
         _viewModel = StateObject(wrappedValue: DIContainer.shared.container.resolve(CardCreationViewModel.self, argument: movie)!)
+        self.genres = genres
     }
     
     var body: some View {
@@ -43,7 +46,7 @@ struct CardCreationView: View {
     }
     
     private func saveCard() {
-        viewModel.saveCard(rating: Double(rating), review: review)
+        viewModel.saveCard(rating: Double(rating), review: review, genres: genres)
     }
 }
 
