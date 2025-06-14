@@ -147,7 +147,8 @@ struct UITestDataProvider {
                 posterURL: "https://via.placeholder.com/300x450/FF6B6B/FFFFFF?text=Movie1",
                 rating: 4.5,
                 review: "테스트용 리뷰 1",
-                watchedDate: Date()
+                watchedDate: Date(),
+                genres: ["액션"]
             ),
             Movie(
                 title: "UI 테스트 영화 2",
@@ -155,7 +156,8 @@ struct UITestDataProvider {
                 posterURL: "https://via.placeholder.com/300x450/4ECDC4/FFFFFF?text=Movie2",
                 rating: 5.0,
                 review: "테스트용 리뷰 1",
-                watchedDate: Date()
+                watchedDate: Date(),
+                genres: ["스릴러"]
             ),
             Movie(
                 title: "UI 테스트 영화 3",
@@ -163,7 +165,8 @@ struct UITestDataProvider {
                 posterURL: "https://via.placeholder.com/300x450/45B7D1/FFFFFF?text=Movie3",
                 rating: 3.5,
                 review: "테스트용 리뷰 1",
-                watchedDate: Date()
+                watchedDate: Date(),
+                genres: ["모험"]
             )
         ]
     }
