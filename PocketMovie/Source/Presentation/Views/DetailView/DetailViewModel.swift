@@ -17,6 +17,7 @@ class DetailViewModel: ObservableObject {
     
     @Published var movieDetail: TMDBMovieDetail?
     @Published var movieImages: TMDBMovieImagesResponse?
+    @Published var genres: [String]?
     @Published var isLoading = false
     @Published var error: Error?
     
@@ -44,6 +45,7 @@ class DetailViewModel: ObservableObject {
             } receiveValue: { [weak self] (movieDetail, movieImages) in
                 self?.movieDetail = movieDetail
                 self?.movieImages = movieImages
+                self?.genres = movieDetail.genres.map { $0.name }
             }
             .store(in: &cancellables)
     }
