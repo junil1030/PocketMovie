@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailView: View {
-    let movie: TMDBMovie
+    var movie: TMDBMovie
     @StateObject private var viewModel: DetailViewModel
     @Environment(\.dismiss) private var dismiss
     @State private var showingCardCreation = false
@@ -94,7 +94,12 @@ struct DetailView: View {
         }
         .sheet(isPresented: $showingCardCreation) {
             NavigationStack {
-                CardCreationView(movie: movie)
+                if let genres = viewModel.genres {
+                    CardCreationView(movie: movie, genres: genres)
+                } else {
+                    CardCreationView(movie: movie, genres: [])
+                }
+                
             }
         }
         .onAppear() {
