@@ -6,14 +6,35 @@
 //
 
 import SwiftUI
+import Combine
 
 @main
 struct PocketMovieApp: App {
-    @State private var isReady = false
+    @StateObject private var appState = AppState()
     
     var body: some Scene {
         WindowGroup {
             rootView
+        }
+    }
+    
+    @ViewBuilder
+    private var rootView: some View {
+        if isUITesting {
+            TestingRootView()
+                .environment(\.isUITesting, true)
+        } else {
+            if appState.isReady {
+                MainTabView()
+                    .environmentObject(appState.genreStore)
+                    .background(Color("AppBackgroundColor"))
+            } else {
+                ProgressView()
+                    .task {
+                        await appState.setupApp()
+                    }
+                    .background(Color("AppBackgroundColor"))
+            }
         }
     }
     
@@ -30,27 +51,40 @@ struct PocketMovieApp: App {
     private var shouldPopulateTestData: Bool {
         ProcessInfo.processInfo.arguments.contains("--populate-test-data")
     }
+}
+
+//MARK: - App 상태 관리 클래스
+@MainActor
+class AppState: ObservableObject {
+    @Published var isReady = false
+    @Published var genreStore = GenreStore()
     
-    @ViewBuilder
-    private var rootView: some View {
-        if isUITesting {
-            // UI 테스트용 설정
-            TestingRootView()
-                .environment(\.isUITesting, true)
-        } else {
-            // 일반 실행
-            if isReady {
-                MainTabView()
-                    .background(Color("AppBackgroundColor"))
-            } else {
-                ProgressView()
-                    .task {
-                        await DIContainer.shared.registerMain()
-                        isReady = true
-                    }
-                    .background(Color("AppBackgroundColor"))
-            }
+    private var cancellables = Set<AnyCancellable>()
+    
+    func setupApp() async {
+        await DIContainer.shared.registerMain()
+        await loadGenres()
+        isReady = true
+    }
+    
+    private func loadGenres() async {
+        let container = DIContainer.shared
+        guard let movieAPIService = container.container.resolve(MovieAPIService.self) else {
+            return
         }
+        
+        movieAPIService.getGenreList()
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    print("장르 로딩 실패: \(error)")
+                }
+            } receiveValue: { [weak self] response in
+                let genres = [Genre.all] + response.genres
+                self?.genreStore.genres = genres
+                print("장르 로딩 완료: \(genres.count)개")
+            }
+            .store(in: &cancellables)
     }
 }
 
