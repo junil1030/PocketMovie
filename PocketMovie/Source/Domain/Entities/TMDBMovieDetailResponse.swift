@@ -52,9 +52,19 @@ struct TMDBMovieDetail: Codable {
 }
 
 // 장르 정보
-struct Genre: Codable, Identifiable {
+struct Genre: Codable, Identifiable, Hashable {
     let id: Int
     let name: String
+    
+    static let all = Genre(id: -1, name: "전체")
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: Genre, rhs: Genre) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 // 제작 국가
