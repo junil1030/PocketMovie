@@ -1,5 +1,5 @@
 //
-//  GenreResponse.swift
+//  TMDBGenreResponse.swift
 //  PocketMovie
 //
 //  Created by 서준일 on 6/16/25.
