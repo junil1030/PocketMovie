@@ -20,7 +20,7 @@ struct PerformanceTests {
         let useCase = DefaultMovieUseCase(repository: mockRepository)
         
         // 1000개의 영화 (각각 다른 포스터 URL)
-        var memoryBefore = getMemoryUsage()
+        let memoryBefore = getMemoryUsage()
         
         for i in 1...1000 {
             let movie = MovieTestFactory.createMockMovie(

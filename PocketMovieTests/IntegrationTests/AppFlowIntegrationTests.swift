@@ -67,7 +67,7 @@ struct AppFlowIntegrationTests {
             movieUseCase: DefaultMovieUseCase(repository: mockRepository)
         )
         
-        cardViewModel.saveCard(rating: 5.0, review: "최고의 우주 영화!")
+        cardViewModel.saveCard(rating: 5.0, review: "최고의 우주 영화!", genres: ["SF"])
         
         #expect(cardViewModel.showSavedAlert == true)
         
@@ -152,7 +152,7 @@ struct AppFlowIntegrationTests {
             movieUseCase: DefaultMovieUseCase(repository: mockRepository)
         )
         
-        cardViewModel.saveCard(rating: 4.0, review: "무서웠지만 재밌었다")
+        cardViewModel.saveCard(rating: 4.0, review: "무서웠지만 재밌었다", genres: ["스릴러"])
         
         #expect(cardViewModel.showSavedAlert == true)
     }

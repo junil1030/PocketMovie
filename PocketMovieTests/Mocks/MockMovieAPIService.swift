@@ -16,6 +16,7 @@ class MockMovieAPIService: MovieAPIService {
     var fetchWeekBoxOfficeCallCount = 0
     var getMovieDetailCallCount = 0
     var getMovieImageCallCount = 0
+    var getGenrelistCallCount = 0
     
     // Mock 결과
     var searchMoviesResult: Result<TMDBMovieResponse, Error> = .failure(MockError.unknownError)
@@ -23,6 +24,7 @@ class MockMovieAPIService: MovieAPIService {
     var weeklyBoxOfficeResult: Result<WeeklyBoxOfficeResponse, Error> = .failure(MockError.unknownError)
     var movieDetailResult: Result<TMDBMovieDetail, Error> = .failure(MockError.unknownError)
     var movieImagesResult: Result<TMDBMovieImagesResponse, Error> = .failure(MockError.unknownError)
+    var genreListResult: Result<TMDBGenreResponse, Error> = .failure(MockError.unknownError)
     
     func fetchDailyBoxOffice(date: String) -> AnyPublisher<DailyBoxOfficeResponse, Error> {
         fetchDailyBoxOfficeCallCount += 1
@@ -85,6 +87,20 @@ class MockMovieAPIService: MovieAPIService {
         
         return Future<TMDBMovieImagesResponse, Error> { promise in
             switch self.movieImagesResult {
+            case .success(let response):
+                promise(.success(response))
+            case .failure(let error):
+                promise(.failure(error))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func getGenreList() -> AnyPublisher<TMDBGenreResponse, any Error> {
+        getGenrelistCallCount += 1
+        
+        return Future<TMDBGenreResponse, Error> { promise in
+            switch self.genreListResult {
             case .success(let response):
                 promise(.success(response))
             case .failure(let error):

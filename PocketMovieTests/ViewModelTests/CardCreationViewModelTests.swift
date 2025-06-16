@@ -48,7 +48,7 @@ struct CardCreationViewModelTests {
         )
         
         // When
-        viewModel.saveCard(rating: 4.5, review: "좋은 영화였습니다")
+        viewModel.saveCard(rating: 4.5, review: "좋은 영화였습니다", genres: ["액션", "코미디"])
         
         // Then
         #expect(viewModel.isLoading == false)
@@ -74,7 +74,7 @@ struct CardCreationViewModelTests {
         )
         
         // When
-        viewModel.saveCard(rating: 4.0, review: "테스트 리뷰")
+        viewModel.saveCard(rating: 4.0, review: "테스트 리뷰", genres: ["코미디"])
         
         // Then
         #expect(viewModel.isLoading == false)
@@ -98,7 +98,7 @@ struct CardCreationViewModelTests {
         
         // When & Then
         for rating in ratings {
-            viewModel.saveCard(rating: rating, review: "평점 \(rating) 테스트")
+            viewModel.saveCard(rating: rating, review: "평점 \(rating) 테스트", genres: ["코미디"])
             
             let savedMovies = mockUseCase.getAllMovies()
             let lastMovie = savedMovies.last
@@ -121,7 +121,7 @@ struct CardCreationViewModelTests {
         let longReview = "정말 감동적인 영화였습니다. 스토리도 좋고 연출도 훌륭했습니다. 배우들의 연기도 인상적이었고 음악도 아름다웠습니다."
         
         // When
-        viewModel.saveCard(rating: 5.0, review: longReview)
+        viewModel.saveCard(rating: 5.0, review: longReview, genres: ["코미디"])
         
         // Then
         #expect(viewModel.showSavedAlert == true)
@@ -142,7 +142,7 @@ struct CardCreationViewModelTests {
         let beforeSave = Date()
         
         // When
-        viewModel.saveCard(rating: 4.0, review: "날짜 테스트")
+        viewModel.saveCard(rating: 4.0, review: "날짜 테스트", genres: ["코미디"])
         
         let afterSave = Date()
         
@@ -176,7 +176,7 @@ struct CardCreationViewModelTests {
         )
         
         // When
-        viewModel.saveCard(rating: 4.0, review: "포스터 URL 테스트")
+        viewModel.saveCard(rating: 4.0, review: "포스터 URL 테스트", genres: ["코미디"])
         
         // Then
         let savedMovie = mockUseCase.getAllMovies().first
@@ -197,7 +197,7 @@ struct CardCreationViewModelTests {
         )
         
         // When
-        viewModel.saveCard(rating: 3.0, review: "")
+        viewModel.saveCard(rating: 3.0, review: "", genres: ["코미디"])
         
         // Then - 빈 리뷰도 저장 가능 (UI에서 막아야 함)
         #expect(viewModel.showSavedAlert == true)
@@ -216,7 +216,7 @@ struct CardCreationViewModelTests {
         )
         
         // When
-        viewModel.saveCard(rating: 0.0, review: "0점 테스트")
+        viewModel.saveCard(rating: 0.0, review: "0점 테스트", genres: ["코미디"])
         
         // Then - 0점도 저장 가능 (UI에서 막아야 함)
         #expect(viewModel.showSavedAlert == true)
@@ -237,7 +237,7 @@ struct CardCreationViewModelTests {
         )
         
         // When
-        viewModel.saveCard(rating: 4.0, review: "로딩 테스트")
+        viewModel.saveCard(rating: 4.0, review: "로딩 테스트", genres: ["코미디"])
         
         // Then
         #expect(viewModel.isLoading == false) // 동기 작업이므로 즉시 false
@@ -254,9 +254,9 @@ struct CardCreationViewModelTests {
         )
         
         // When - 같은 영화를 여러 번 저장
-        viewModel.saveCard(rating: 3.0, review: "첫 번째 저장")
-        viewModel.saveCard(rating: 4.0, review: "두 번째 저장")
-        viewModel.saveCard(rating: 5.0, review: "세 번째 저장")
+        viewModel.saveCard(rating: 3.0, review: "첫 번째 저장", genres: ["코미디"])
+        viewModel.saveCard(rating: 4.0, review: "두 번째 저장", genres: ["코미디"])
+        viewModel.saveCard(rating: 5.0, review: "세 번째 저장", genres: ["코미디"])
         
         // Then
         #expect(mockUseCase.getAllMovies().count == 3)
