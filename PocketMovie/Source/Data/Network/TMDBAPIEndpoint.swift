@@ -16,6 +16,7 @@ enum TMDBAPIEndpoint {
     case searchMovies(keyword: String, page: Int = 1)
     case movieDetail(movieId: Int)
     case movieImages(movieId: Int)
+    case genreList
 }
 
 extension TMDBAPIEndpoint: APIEndpoint {
@@ -31,6 +32,8 @@ extension TMDBAPIEndpoint: APIEndpoint {
             return "/movie/\(movieId)"
         case .movieImages(let movieId):
             return "/movie/\(movieId)/images"
+        case .genreList:
+            return "/genre/movie/list"
         }
     }
     
@@ -53,6 +56,8 @@ extension TMDBAPIEndpoint: APIEndpoint {
             params["append_to_response"] = "credits,videos,similar,recommendations"
         case .movieImages:
             break
+        case .genreList:
+            params["language"] = "ko-KR"
         }
         
         return params
